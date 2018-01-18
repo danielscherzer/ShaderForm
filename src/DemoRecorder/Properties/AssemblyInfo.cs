@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("ShaderForm")]
-[assembly: AssemblyDescription("Pixel shader viewer that allows to set changing uniforms over time like key-frames.")]
+[assembly: AssemblyTitle("DemoRecorder")]
+[assembly: AssemblyDescription("Allows to record the frame-by-frame output specified in a demo.config file into a list of images.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Daniel Scherzer")]
-[assembly: AssemblyProduct("ShaderForm")]
+[assembly: AssemblyProduct("DemoRecorder")]
 [assembly: AssemblyCopyright("Copyright © 2016 Daniel Scherzer")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("bde1e6ad-6567-497e-8798-4c1dc147d99f")]
+[assembly: Guid("013D4176-6166-426A-94FF-85DEA2084286")]
 
 // Version information for an assembly consists of the following four values:
 //
