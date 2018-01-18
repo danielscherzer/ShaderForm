@@ -1,0 +1,60 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2024
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ControlClassLibrary", "src\ControlClassLibrary\ControlClassLibrary.csproj", "{1E28B48E-DED7-4184-A449-B1D8C8C489EA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShaderForm", "src\ShaderForm\ShaderForm.csproj", "{38149468-A074-4408-8684-B06F7176B3F6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Converter", "src\Converter\Converter.csproj", "{5CD75BBF-DB84-4509-80F6-8DB1F11A666F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoPlayer", "src\DemoPlayer\DemoPlayer.csproj", "{0CC80831-18A6-4921-BB1A-B0230F268A22}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoRecorder", "src\DemoRecorder\DemoRecorder.csproj", "{013D4176-6166-426A-94FF-85DEA2084286}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B0EE9559-78D7-4D44-A552-F610E3CCAD3E}"
+	ProjectSection(SolutionItems) = preProject
+		.gitattributes = .gitattributes
+		.gitignore = .gitignore
+		appveyor.yml = appveyor.yml
+		CHANGELOG.md = CHANGELOG.md
+		CONTRIBUTING.md = CONTRIBUTING.md
+		ISSUE_TEMPLATE.md = ISSUE_TEMPLATE.md
+		LICENSE = LICENSE
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1E28B48E-DED7-4184-A449-B1D8C8C489EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1E28B48E-DED7-4184-A449-B1D8C8C489EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1E28B48E-DED7-4184-A449-B1D8C8C489EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1E28B48E-DED7-4184-A449-B1D8C8C489EA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{38149468-A074-4408-8684-B06F7176B3F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{38149468-A074-4408-8684-B06F7176B3F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{38149468-A074-4408-8684-B06F7176B3F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{38149468-A074-4408-8684-B06F7176B3F6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5CD75BBF-DB84-4509-80F6-8DB1F11A666F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5CD75BBF-DB84-4509-80F6-8DB1F11A666F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5CD75BBF-DB84-4509-80F6-8DB1F11A666F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5CD75BBF-DB84-4509-80F6-8DB1F11A666F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0CC80831-18A6-4921-BB1A-B0230F268A22}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0CC80831-18A6-4921-BB1A-B0230F268A22}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0CC80831-18A6-4921-BB1A-B0230F268A22}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0CC80831-18A6-4921-BB1A-B0230F268A22}.Release|Any CPU.Build.0 = Release|Any CPU
+		{013D4176-6166-426A-94FF-85DEA2084286}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{013D4176-6166-426A-94FF-85DEA2084286}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{013D4176-6166-426A-94FF-85DEA2084286}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{013D4176-6166-426A-94FF-85DEA2084286}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {271D6A7B-5087-4D63-9213-F1197D2FD2DB}
+	EndGlobalSection
+EndGlobal

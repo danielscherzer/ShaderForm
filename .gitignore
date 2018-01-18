@@ -1,0 +1,9 @@
+.vs
+bin
+obj
+*.lnk
+*.suo
+*.user
+*.sdf
+level.data
+/packages
