@@ -1,3 +1,5 @@
+[![Build status](https://ci.appveyor.com/api/projects/status/1sd0eouxsm4vt8e5?svg=true)](https://ci.appveyor.com/project/danielscherzer/shaderform)
+
 # Shader Form
 See the [change log](CHANGELOG.md) for changes, features and road map.
 ![ShaderForm](ShaderForm.png)
