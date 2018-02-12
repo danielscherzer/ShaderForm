@@ -1,7 +1,7 @@
 ﻿using ShaderForm.Interfaces;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using Zenseless.ShaderDebugging;
+using Zenseless.ContentPipeline;
 
 namespace ShaderForm.Graph
 {
@@ -31,7 +31,7 @@ namespace ShaderForm.Graph
 
 		public void AddInterpolatedKeyframe(float position)
 		{
-			if (ReferenceEquals(null,  kfs)) return;
+			if (kfs is null) return;
 			var value = kfs.Interpolate(position);
 			kfs.AddUpdate(position, value);
 		}
@@ -75,7 +75,7 @@ namespace ShaderForm.Graph
 
 		private void FormGraph_OnChangePoints(IEnumerable<KeyValuePair<float, float>> points)
 		{
-			if (ReferenceEquals(null,  kfs)) return;
+			if (kfs is null) return;
 			updating = true;
 			kfs.Clear();
 			foreach (var p in points)

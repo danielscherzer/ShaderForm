@@ -1,6 +1,6 @@
 ﻿using System.Windows.Forms;
 using System;
-using Zenseless.ShaderDebugging;
+using Zenseless.ContentPipeline;
 
 namespace ShaderForm.Camera
 {
@@ -26,7 +26,7 @@ namespace ShaderForm.Camera
 		private void BtnReset_Click(object sender, EventArgs e)
 		{
 			var cam = propertyGrid1.SelectedObject as AdapterCamera;
-			if (ReferenceEquals(null,  cam)) return;
+			if (cam is null) return;
 			cam.Reset();
 			propertyGrid1.SelectedObject = cam;
 		}

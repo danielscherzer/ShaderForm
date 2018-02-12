@@ -21,7 +21,7 @@ namespace ShaderForm.Visual
 
 			surface = new DoubleBufferedFbo();
 
-			copyToScreen = new TextureToFrameBuffer();
+			copyToScreen = new PostProcessing();
 			shaderDefault = ShaderLoader.FromStrings(DefaultShader.VertexShaderScreenQuad, DefaultShader.FragmentShaderChecker);
 		}
 
@@ -113,7 +113,7 @@ namespace ShaderForm.Visual
 			{
 				try
 				{
-					var tex = TextureLoader.FromFile(fileName);
+					var tex = TextureLoaderDrawing.FromFile(fileName);
 					int index = textureNames.FindIndex((string name) => name == fileName);
 					if (0 <= index)
 					{
@@ -183,9 +183,9 @@ namespace ShaderForm.Visual
 
 		public void RemoveShader(string shaderFileName)
 		{
-			if (shaders.TryGetValue(shaderFileName, out IShader shader))
+			if (shaders.TryGetValue(shaderFileName, out IShaderProgram shaderProgram))
 			{
-				shader.Dispose();
+				shaderProgram.Dispose();
 				shaders.Remove(shaderFileName);
 			}
 		}
@@ -199,7 +199,7 @@ namespace ShaderForm.Visual
 
 		public Bitmap GetScreenshot()
 		{
-			return TextureLoader.SaveToBitmap(surface.Active);
+			return TextureLoaderDrawing.SaveToBitmap(surface.Active);
 		}
 
 		public Vector4[] GetBuffer()
@@ -215,11 +215,11 @@ namespace ShaderForm.Visual
 
 		private List<string> textureNames = new List<string>();
 		private List<ITexture> textures = new List<ITexture>();
-		private Dictionary<string, IShader> shaders = new Dictionary<string, IShader>();
+		private Dictionary<string, IShaderProgram> shaders = new Dictionary<string, IShaderProgram>();
 		private DoubleBufferedFbo surface;
-		private TextureToFrameBuffer copyToScreen;
-		private IShader shaderCurrent;
-		private IShader shaderDefault;
+		private PostProcessing copyToScreen;
+		private IShaderProgram shaderCurrent;
+		private IShaderProgram shaderDefault;
 		private Vector4[] buffer;
 		private QueryObject glTimer = new QueryObject();
 

@@ -11,7 +11,7 @@ using System.IO;
 using System.Linq;
 using System.Numerics;
 using System.Windows.Forms;
-using Zenseless.ShaderDebugging;
+using Zenseless.ContentPipeline;
 
 namespace ShaderForm
 {

@@ -204,7 +204,7 @@
       <Version>3.0.0-pre</Version>
     </PackageReference>
     <PackageReference Include="Zenseless.ContentPipeline">
-      <Version>0.4.15</Version>
+      <Version>0.4.20</Version>
     </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

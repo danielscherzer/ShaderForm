@@ -87,7 +87,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Zenseless.Sound">
-      <Version>0.4.15</Version>
+      <Version>0.4.20</Version>
     </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
