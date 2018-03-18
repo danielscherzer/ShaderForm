@@ -4,7 +4,7 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
-using Zenseless.ContentPipeline;
+using Zenseless.ExampleFramework;
 
 namespace ShaderForm.Graph
 {

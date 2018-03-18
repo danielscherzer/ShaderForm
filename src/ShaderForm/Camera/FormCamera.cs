@@ -1,6 +1,6 @@
 ﻿using System.Windows.Forms;
 using System;
-using Zenseless.ContentPipeline;
+using Zenseless.ExampleFramework;
 
 namespace ShaderForm.Camera
 {

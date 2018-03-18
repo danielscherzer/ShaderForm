@@ -1,7 +1,7 @@
 ﻿using ShaderForm.Interfaces;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using Zenseless.ContentPipeline;
+using Zenseless.ExampleFramework;
 
 namespace ShaderForm.Graph
 {

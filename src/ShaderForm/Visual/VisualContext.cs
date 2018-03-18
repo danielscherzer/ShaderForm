@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Numerics;
+using System.Reflection;
 using Zenseless.Base;
 using Zenseless.HLGL;
 using Zenseless.OpenGL;
@@ -16,13 +17,14 @@ namespace ShaderForm.Visual
 	{
 		public VisualContext()
 		{
+			contentManager = ContentManagerGL.Create(Assembly.GetExecutingAssembly());
 			GL.Disable(EnableCap.DepthTest);
 			GL.ClearColor(1, 0, 0, 0);
 
 			surface = new DoubleBufferedFbo();
 
-			copyToScreen = new PostProcessing();
-			shaderDefault = ShaderLoader.FromStrings(DefaultShader.VertexShaderScreenQuad, DefaultShader.FragmentShaderChecker);
+			copyToScreen = new PostProcessing(contentManager.LoadPixelShader("copy.frag"));
+			shaderDefault = contentManager.LoadPixelShader("Checker.frag");
 		}
 
 		public void SetUniform(string uniformName, float value)
@@ -113,17 +115,20 @@ namespace ShaderForm.Visual
 			{
 				try
 				{
-					var tex = TextureLoaderDrawing.FromFile(fileName);
-					int index = textureNames.FindIndex((string name) => name == fileName);
-					if (0 <= index)
+					using (var bitmap = new Bitmap(fileName))
 					{
-						//readd
-						textures[index].Dispose();
-						textures[index] = tex;
+						var tex = TextureLoaderDrawing.FromBitmap(bitmap);
+						int index = textureNames.FindIndex((string name) => name == fileName);
+						if (0 <= index)
+						{
+							//overwrite old
+							textures[index].Dispose();
+							textures[index] = tex;
+						}
+						textureNames.Add(fileName);
+						textures.Add(tex);
+						return true;
 					}
-					textureNames.Add(fileName);
-					textures.Add(tex);
-					return true;
 				}
 				catch {	}
 			}
@@ -161,7 +166,8 @@ namespace ShaderForm.Visual
 					}
 				}
 				var sFragmentShd = ShaderLoader.ShaderStringFromFileWithIncludes(fileName, false);
-				var shader = ShaderLoader.FromStrings(DefaultShader.VertexShaderScreenQuad, sFragmentShd);
+				var sVertexShader = contentManager.Load<string>("ScreenQuad.vert");
+				var shader = ShaderLoader.FromStrings(sVertexShader, sFragmentShd);
 				shaders[fileName] = shader;
 				return shader.LastLog;
 			}
@@ -170,7 +176,8 @@ namespace ShaderForm.Visual
 				try
 				{
 					var sFragmentShd = ShaderLoader.ShaderStringFromFileWithIncludes(fileName, true);
-					var shader = ShaderLoader.FromStrings(DefaultShader.VertexShaderScreenQuad, sFragmentShd);
+					var sVertexShader = contentManager.Load<string>("ScreenQuad.vert");
+					var shader = ShaderLoader.FromStrings(sVertexShader, sFragmentShd);
 					shaders[fileName] = shader;
 					return shader.LastLog;
 				}
@@ -222,6 +229,7 @@ namespace ShaderForm.Visual
 		private IShaderProgram shaderDefault;
 		private Vector4[] buffer;
 		private QueryObject glTimer = new QueryObject();
+		private readonly FileContentManager contentManager;
 
 		protected override void DisposeResources()
 		{
