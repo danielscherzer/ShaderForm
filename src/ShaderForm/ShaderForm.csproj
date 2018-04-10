@@ -204,22 +204,22 @@
       <Version>3.0.0-pre</Version>
     </PackageReference>
     <PackageReference Include="Zenseless.Base">
-      <Version>0.5.32</Version>
+      <Version>0.5.47</Version>
     </PackageReference>
     <PackageReference Include="Zenseless.ContentPipeline">
-      <Version>0.5.32</Version>
+      <Version>0.5.47</Version>
     </PackageReference>
     <PackageReference Include="Zenseless.Geometry">
-      <Version>0.5.32</Version>
+      <Version>0.5.47</Version>
     </PackageReference>
     <PackageReference Include="Zenseless.HLGL">
-      <Version>0.5.32</Version>
+      <Version>0.5.47</Version>
     </PackageReference>
     <PackageReference Include="Zenseless.OpenGL">
-      <Version>0.5.32</Version>
+      <Version>0.5.47</Version>
     </PackageReference>
     <PackageReference Include="Zenseless.Sound">
-      <Version>0.5.32</Version>
+      <Version>0.5.47</Version>
     </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

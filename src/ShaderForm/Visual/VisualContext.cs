@@ -30,7 +30,7 @@ namespace ShaderForm.Visual
 		public void SetUniform(string uniformName, float value)
 		{
 			Debug.Assert(!(shaderCurrent is null));
-			GL.Uniform1(shaderCurrent.GetResourceLocation(ShaderResourceType.Uniform, uniformName), value);
+			shaderCurrent.Uniform(uniformName, value);
 		}
 
 		public void SetUniform(string uniformName, float valueX, float valueY)
@@ -71,7 +71,7 @@ namespace ShaderForm.Visual
 			{
 				GL.ActiveTexture(TextureUnit.Texture0 + id);
 				tex.Activate();
-				GL.Uniform1(shaderCurrent.GetResourceLocation(ShaderResourceType.Uniform, "tex" + id.ToString()), id);
+				shaderCurrent.Uniform("tex" + id.ToString(), id);
 				++id;
 			}
 			//bind last frame as texture
@@ -79,7 +79,7 @@ namespace ShaderForm.Visual
 			{
 				GL.ActiveTexture(TextureUnit.Texture0 + id);
 				surface.Last[i].Activate();
-				GL.Uniform1(shaderCurrent.GetResourceLocation(ShaderResourceType.Uniform, $"texLastFrame{i}"), id);
+				shaderCurrent.Uniform($"texLastFrame{i}", id);
 				++id;
 			}
 
@@ -106,7 +106,6 @@ namespace ShaderForm.Visual
 		public void UpdateSurfaceSize(int width, int height)
 		{
 			surface.UpdateSurfaceSize(width, height);
-			buffer = new Vector4[width * height];
 		}
 
 		public bool AddUpdateTexture(string fileName)
@@ -209,13 +208,6 @@ namespace ShaderForm.Visual
 			return TextureLoaderDrawing.SaveToBitmap(surface.Active);
 		}
 
-		public Vector4[] GetBuffer()
-		{
-			TextureLoader.ToBuffer(surface.Active, ref buffer);
-			return buffer;
-		}
-
-
 		public float UpdateTime { get { return (float)(glTimer.ResultLong * 1e-9); } }
 		//public IEnumerable<string> ShaderList { get { return shaders.Keys; } }
 		//public IEnumerable<string> TextureList { get { return textureNames; } }
@@ -227,7 +219,6 @@ namespace ShaderForm.Visual
 		private PostProcessing copyToScreen;
 		private IShaderProgram shaderCurrent;
 		private IShaderProgram shaderDefault;
-		private Vector4[] buffer;
 		private QueryObject glTimer = new QueryObject();
 		private readonly FileContentManager contentManager;
 
