@@ -1,9 +1,9 @@
-﻿using Zenseless.Base;
-using ShaderForm.Demo;
+﻿using ShaderForm.Demo;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using Zenseless.Patterns;
 
 namespace ShaderForm.DemoModelFactory
 {
@@ -46,8 +46,7 @@ namespace ShaderForm.DemoModelFactory
 
 		public void RemoveShader(string shaderFileName)
 		{
-			IShaderFile shader;
-			if (shaders.TryGetValue(shaderFileName, out shader))
+			if (shaders.TryGetValue(shaderFileName, out IShaderFile shader))
 			{
 				shader.Dispose();
 			}

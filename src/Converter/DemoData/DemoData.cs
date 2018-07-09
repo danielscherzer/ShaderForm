@@ -1,7 +1,7 @@
-﻿using Zenseless.Base;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using Zenseless.Patterns;
 
 namespace ShaderForm.DemoData
 {

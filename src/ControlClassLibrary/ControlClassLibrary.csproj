@@ -86,11 +86,11 @@
     <None Include="Resources\PlayHS.png" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Zenseless.Base">
-      <Version>0.5.47</Version>
+    <PackageReference Include="Zenseless.Patterns">
+      <Version>0.5.87</Version>
     </PackageReference>
     <PackageReference Include="Zenseless.Sound">
-      <Version>0.5.47</Version>
+      <Version>0.5.87</Version>
     </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

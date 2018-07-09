@@ -1,12 +1,12 @@
-﻿using System.IO;
-using System.Linq;
-using ShaderForm.DemoData2;
-using System;
-using System.Collections.Generic;
-using Zenseless.Base;
-
-namespace ShaderForm.Demo
+﻿namespace ShaderForm.Demo
 {
+	using System.IO;
+	using System.Linq;
+	using ShaderForm.DemoData2;
+	using System;
+	using System.Collections.Generic;
+	using Zenseless.Patterns;
+
 	public class ProgressEventArgs : EventArgs
 	{
 		public ProgressEventArgs(string message)
@@ -25,7 +25,7 @@ namespace ShaderForm.Demo
 	{
 		public static void LoadFromFile(DemoModel demo, string fileName, ErrorEventHandler progressHandler = null)
 		{
-			var data = Serialization.FromXMLFile(fileName, typeof(DemoData2.DemoData2)) as DemoData2.DemoData2;
+			var data = Serialization.FromXMLFile(fileName, typeof(DemoData2)) as DemoData2;
 			data.ConvertToAbsolutePath(Path.GetDirectoryName(Path.GetFullPath(fileName)));
 			demo.Clear();
 			if (!LoadSound(data.SoundFileName, demo, progressHandler)) return;
@@ -45,7 +45,7 @@ namespace ShaderForm.Demo
 
 		public static void SaveToFile(DemoModel demo, string fileName)
 		{
-			var data = new DemoData2.DemoData2();
+			var data = new DemoData2();
 			Save(demo, data);
 			data.ConvertToRelativePath(Path.GetDirectoryName(Path.GetFullPath(fileName)));
 			Serialization.ToXMLFile(data, fileName);
@@ -69,14 +69,14 @@ namespace ShaderForm.Demo
 			if (!string.IsNullOrWhiteSpace(soundFileName))
 			{
 				var sound = DemoTimeSource.FromMediaFile(soundFileName);
-				if (ReferenceEquals(null,  sound) && !ReferenceEquals(null,  progressHandler))
+				if (sound is null && !(progressHandler is null))
 				{
 					var args = new ProgressEventArgs("Could not load sound file '" + soundFileName + "'");
 					progressHandler(demo, args);
 					if (args.Cancel) return false;
 				}
 				demo.TimeSource.Load(sound, soundFileName);
-				if (!ReferenceEquals(null,  sound) && !ReferenceEquals(null,  progressHandler))
+				if (!(sound is null) && !(progressHandler is null))
 				{
 					var args = new ProgressEventArgs("Sound file '" + soundFileName + "' loaded");
 					progressHandler(demo, args);
@@ -91,7 +91,7 @@ namespace ShaderForm.Demo
 			foreach (var tex in textures)
 			{
 				bool success = demo.Textures.AddUpdate(tex);
-				if(!ReferenceEquals(null,  progressHandler))
+				if(!(progressHandler is null))
 				{
 					var msg = success ? "Texture file '" + tex + "' loaded" : "Could not load texture file '" + tex + "'";
 					var args = new ProgressEventArgs(msg);
@@ -102,7 +102,7 @@ namespace ShaderForm.Demo
 			return true;
 		}
 
-		private static void Save(DemoModel demo, DemoData2.DemoData2 data)
+		private static void Save(DemoModel demo, DemoData2 data)
 		{
 			data.SoundFileName = demo.TimeSource.SoundFileName;
 			data.Textures = demo.Textures.ToList();

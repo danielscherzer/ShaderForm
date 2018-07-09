@@ -1,7 +1,7 @@
-﻿using Zenseless.Base;
-using ShaderForm.Interfaces;
+﻿using ShaderForm.Interfaces;
 using ShaderForm.Visual;
 using System.Drawing;
+using Zenseless.Patterns;
 
 namespace ShaderForm.Demo
 {

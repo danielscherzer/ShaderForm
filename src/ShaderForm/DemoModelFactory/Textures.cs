@@ -1,10 +1,10 @@
-﻿using Zenseless.Base;
-using ShaderForm.Interfaces;
+﻿using ShaderForm.Interfaces;
 using ShaderForm.Visual;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Zenseless.Patterns;
 
 namespace ShaderForm.DemoModelFactory
 {

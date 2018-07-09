@@ -1,15 +1,15 @@
-﻿using System.Diagnostics;
-using System.Timers;
-using Zenseless.Base;
-using Zenseless.Sound;
-
-namespace ControlClassLibrary
+﻿namespace ControlClassLibrary
 {
+	using System.Diagnostics;
+	using System.Timers;
+	using Zenseless.Patterns;
+	using Zenseless.Sound;
+
 	/// <summary>
 	/// A stop watch type clock with a certain length or running time.
 	/// Can be started or stopped and allows seeking and looping.
 	/// </summary>
-	/// <seealso cref="Zenseless.Base.ITimedMedia" />
+	/// <seealso cref="Zenseless.Patterns.ITimedMedia" />
 	public class LoopableStopWatch : Disposable, ITimedMedia
 	{
 		/// <summary>

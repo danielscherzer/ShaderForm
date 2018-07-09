@@ -3,11 +3,11 @@ using System;
 using System.ComponentModel;
 using System.IO;
 using System.Windows.Forms;
-using Zenseless.Base;
+using Zenseless.Patterns;
 
 namespace ShaderForm.DemoModelFactory
 {
-    public class ShaderFile : IShaderFile
+	public class ShaderFile : IShaderFile
 	{
 		public event EventHandler<string> Changed;
 
@@ -60,7 +60,7 @@ namespace ShaderForm.DemoModelFactory
                 Timer timer = new Timer
                 {
                     Interval = 2000
-                }; //todo: is this executed on main thread?
+                }; //TODO: is this executed on main thread?
                 timer.Tick += (a, b) =>
 				{
 					timer.Stop();
@@ -68,7 +68,7 @@ namespace ShaderForm.DemoModelFactory
 					LoadShader(shaderFileName); //if fileName is used here timer will always access fileName of first call and not a potential new one 
 				};
 				timer.Start();
-				CallOnChange("Error while accessing shaderfile '" + fileName + "'! Will retry shortly..." + Environment.NewLine + e.Message);
+				CallOnChange("Error while accessing shader file '" + fileName + "'! Will retry shortly..." + Environment.NewLine + e.Message);
 			}
 		}
 

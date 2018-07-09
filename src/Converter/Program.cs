@@ -1,10 +1,10 @@
-﻿using Zenseless.Base;
-using ShaderForm.Demo;
+﻿using ShaderForm.Demo;
 using ShaderForm.DemoData;
 using ShaderForm.DemoData2;
 using System;
 using System.IO;
 using System.Linq;
+using Zenseless.Patterns;
 
 namespace Converter
 {
@@ -28,7 +28,7 @@ namespace Converter
 				if (!string.IsNullOrWhiteSpace(soundFileName))
 				{
 					var sound = DemoTimeSource.FromMediaFile(soundFileName);
-					if (ReferenceEquals(null,  sound))
+					if (sound is null)
 					{
 						Console.WriteLine("Could not load sound file '" + soundFileName + "'");
 						return;

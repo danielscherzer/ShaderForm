@@ -71,7 +71,7 @@ namespace ShaderForm.Graph
 		private FormGraph formGraph;
 		private IKeyFrames kfs;
 		private bool updating = false;
-		private string currentUniform;
+		private readonly string currentUniform;
 
 		private void FormGraph_OnChangePoints(IEnumerable<KeyValuePair<float, float>> points)
 		{

@@ -1,10 +1,9 @@
-﻿using Zenseless.Base;
-using System;
-using System.Windows.Forms;
-using Zenseless.Sound;
-
-namespace ControlClassLibrary
+﻿namespace ControlClassLibrary
 {
+	using System;
+	using System.Windows.Forms;
+	using Zenseless.Sound;
+
 	public partial class SeekBar : UserControl
 	{
 		public delegate void PositionHandler(float position);
@@ -18,7 +17,7 @@ namespace ControlClassLibrary
 			get { return timeSource; }
 			set
 			{
-				if (ReferenceEquals(null,  value)) throw new Exception("Property TimeSource is forbidden to become null!");
+				if (value is null) throw new Exception("Property TimeSource is forbidden to become null!");
 				timeSource.TimeFinished -= CallOnFinished;
 				if (value != defaultTimeSource)
 				{

@@ -1,10 +1,10 @@
-﻿using Zenseless.Base;
-using System;
-using System.Collections.Generic;
-using System.IO;
-
-namespace ShaderForm.DemoData2
+﻿namespace ShaderForm.DemoData2
 {
+	using System;
+	using System.Collections.Generic;
+	using System.IO;
+	using Zenseless.Patterns;
+
 	[Serializable()]
 	public class DemoData2
 	{

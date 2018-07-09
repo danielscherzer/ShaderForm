@@ -1,23 +1,21 @@
-﻿using OpenTK.Graphics.OpenGL4;
-using ShaderForm.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Drawing;
-using System.IO;
-using System.Numerics;
-using System.Reflection;
-using Zenseless.Base;
-using Zenseless.HLGL;
-using Zenseless.OpenGL;
-
-namespace ShaderForm.Visual
+﻿namespace ShaderForm.Visual
 {
+	using OpenTK.Graphics.OpenGL4;
+	using ShaderForm.Interfaces;
+	using System.Collections.Generic;
+	using System.Diagnostics;
+	using System.Drawing;
+	using System.IO;
+	using System.Reflection;
+	using Zenseless.HLGL;
+	using Zenseless.OpenGL;
+	using Zenseless.Patterns;
+
 	public class VisualContext : Disposable, ISetUniform
 	{
 		public VisualContext()
 		{
-			contentManager = ContentManagerGL.Create(Assembly.GetExecutingAssembly());
+			contentManager = ContentManagerGL.Create(Assembly.GetExecutingAssembly(), false);
 			GL.Disable(EnableCap.DepthTest);
 			GL.ClearColor(1, 0, 0, 0);
 
@@ -52,10 +50,6 @@ namespace ShaderForm.Visual
 				shaderCurrent = shaderDefault;
 			}
 			Debug.Assert(!(shaderCurrent is null));
-			if (!shaderCurrent.IsLinked)
-			{
-				shaderCurrent = shaderDefault;
-			}
 			shaderCurrent.Activate();
 			return shaderCurrent != shaderDefault;
 		}
@@ -154,37 +148,52 @@ namespace ShaderForm.Visual
 
 		public string AddUpdateFragmentShader(string fileName)
 		{
-			try
+			var dir = Path.GetDirectoryName(fileName);
+			string GetIncludeCode(string includeName)
 			{
-				if (shaders.ContainsKey(fileName))
+				var includePath = Path.Combine(dir, includeName);
+				var includeCode = File.ReadAllText(includePath);
+				using (var includeShader = new ShaderGL(Zenseless.HLGL.ShaderType.FragmentShader))
 				{
-					if (shaderDefault != shaders[fileName])
+					if (!includeShader.Compile(includeCode))
 					{
-						shaders[fileName].Dispose();
-						shaders[fileName] = shaderDefault;
+						var e = includeShader.CreateException(includeCode);
+						throw new ShaderLoadException($"Error compiling include file '{includePath}'");
 					}
 				}
-				var sFragmentShd = ShaderLoader.ShaderStringFromFileWithIncludes(fileName, false);
-				var sVertexShader = contentManager.Load<string>("ScreenQuad.vert");
-				var shader = ShaderLoader.FromStrings(sVertexShader, sFragmentShd);
-				shaders[fileName] = shader;
-				return shader.LastLog;
+				return includeCode;
 			}
-			catch
+
+			if (shaders.ContainsKey(fileName))
 			{
-				try
+				if (shaderDefault != shaders[fileName])
 				{
-					var sFragmentShd = ShaderLoader.ShaderStringFromFileWithIncludes(fileName, true);
-					var sVertexShader = contentManager.Load<string>("ScreenQuad.vert");
-					var shader = ShaderLoader.FromStrings(sVertexShader, sFragmentShd);
-					shaders[fileName] = shader;
-					return shader.LastLog;
-				}
-				catch (ShaderException e)
-				{
-					throw new ShaderLoadException(e.Message + Environment.NewLine + e.ShaderLog);
+					shaders[fileName].Dispose();
+					shaders[fileName] = shaderDefault;
 				}
 			}
+			var fragmentShaderCode = File.ReadAllText(fileName);
+			var expandedFragmentShaderCode = ShaderLoader.ResolveIncludes(fragmentShaderCode, GetIncludeCode);
+			var fragmentShader = new ShaderGL(Zenseless.HLGL.ShaderType.FragmentShader);
+			if (!fragmentShader.Compile(expandedFragmentShaderCode))
+			{
+				throw new ShaderLoadException($"Error loading '{fileName}' with log\n{fragmentShader.Log}");
+			}
+			var vertexShaderCode = contentManager.Load<string>("ScreenQuad.vert");
+			var vertexShader = new ShaderGL(Zenseless.HLGL.ShaderType.VertexShader);
+			if (!vertexShader.Compile(vertexShaderCode))
+			{
+				throw new ShaderLoadException($"Error loading default vertex shader! Hardware too old or update graphics drivers required!");
+			}
+			ShaderProgramGL shaderProgram = new ShaderProgramGL();
+			shaderProgram.Attach(vertexShader);
+			shaderProgram.Attach(fragmentShader);
+			if (!shaderProgram.Link())
+			{
+				throw new ShaderLoadException($"Error linking shaders for fragment shader '{fileName}'");
+			}
+			shaders[fileName] = shaderProgram;
+			return shaderProgram.Log;
 		}
 
 		public void RemoveShader(string shaderFileName)

@@ -1,15 +1,15 @@
-﻿using Zenseless.Base;
-using Zenseless.HLGL;
+﻿using Zenseless.HLGL;
 using Zenseless.OpenGL;
 using OpenTK.Graphics.OpenGL4;
 using System.Collections.Generic;
+using Zenseless.Patterns;
 
 namespace ShaderForm.Visual
 {
 	/// <summary>
 	/// 
 	/// </summary>
-	/// <seealso cref="Zenseless.Base.Disposable" />
+	/// <seealso cref="Disposable" />
 	public class DoubleBufferedFbo : Disposable
 	{
 		/// <summary>
