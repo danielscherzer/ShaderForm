@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ControlClassLibrary</RootNamespace>
     <AssemblyName>ControlClassLibrary</AssemblyName>
-    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -87,10 +87,10 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Zenseless.Patterns">
-      <Version>0.5.91</Version>
+      <Version>0.5.101</Version>
     </PackageReference>
     <PackageReference Include="Zenseless.Sound">
-      <Version>0.5.91</Version>
+      <Version>0.5.101</Version>
     </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

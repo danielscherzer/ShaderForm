@@ -52,7 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Zenseless.Patterns">
-      <Version>0.5.91</Version>
+      <Version>0.5.101</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>

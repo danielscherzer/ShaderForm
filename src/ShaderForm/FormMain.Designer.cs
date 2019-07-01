@@ -59,12 +59,12 @@ namespace ShaderForm
 			this.menuLoad = new System.Windows.Forms.ToolStripMenuItem();
 			this.menuSave = new System.Windows.Forms.ToolStripMenuItem();
 			this.menuSound = new System.Windows.Forms.ToolStripMenuItem();
+			this.updateAvailableToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.panelSequence = new System.Windows.Forms.Panel();
 			this.buttonReload = new System.Windows.Forms.Button();
 			this.sequenceBar1 = new ControlClassLibrary.SequenceBar();
 			this.textBoxLastMessage = new System.Windows.Forms.TextBox();
 			this.soundPlayerBar1 = new ControlClassLibrary.SeekBar();
-			this.updateAvailableToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.menuStrip.SuspendLayout();
 			this.panelSequence.SuspendLayout();
 			this.SuspendLayout();
@@ -337,6 +337,14 @@ namespace ShaderForm
 			this.menuSound.Text = "Sound";
 			this.menuSound.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MenuSound_MouseDown);
 			// 
+			// updateAvailableToolStripMenuItem
+			// 
+			this.updateAvailableToolStripMenuItem.ForeColor = System.Drawing.Color.Red;
+			this.updateAvailableToolStripMenuItem.Name = "updateAvailableToolStripMenuItem";
+			this.updateAvailableToolStripMenuItem.Size = new System.Drawing.Size(185, 34);
+			this.updateAvailableToolStripMenuItem.Text = "Update available!";
+			this.updateAvailableToolStripMenuItem.Visible = false;
+			// 
 			// panelSequence
 			// 
 			this.panelSequence.Controls.Add(this.buttonReload);
@@ -403,13 +411,6 @@ namespace ShaderForm
 			this.soundPlayerBar1.Size = new System.Drawing.Size(956, 46);
 			this.soundPlayerBar1.TabIndex = 3;
 			this.soundPlayerBar1.TabStop = false;
-			// 
-			// updateAvailableToolStripMenuItem
-			// 
-			this.updateAvailableToolStripMenuItem.Name = "updateAvailableToolStripMenuItem";
-			this.updateAvailableToolStripMenuItem.Size = new System.Drawing.Size(179, 34);
-			this.updateAvailableToolStripMenuItem.Text = "Update available";
-			this.updateAvailableToolStripMenuItem.Visible = false;
 			// 
 			// FormMain
 			// 
