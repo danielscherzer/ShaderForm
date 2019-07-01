@@ -56,12 +56,12 @@ namespace ShaderForm.DemoModelFactory
 			}
 			catch (Exception e)
 			{
-                //try reload in 2 seconds, because sometimes file system is still busy
-                Timer timer = new Timer
-                {
-                    Interval = 2000
-                }; //TODO: is this executed on main thread?
-                timer.Tick += (a, b) =>
+				//try reload in 2 seconds, because sometimes file system is still busy
+				Timer timer = new Timer
+				{
+					Interval = 200
+				}; //TODO: is this executed on main thread?
+				timer.Tick += (a, b) =>
 				{
 					timer.Stop();
 					timer.Dispose();

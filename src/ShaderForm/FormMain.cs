@@ -1,4 +1,5 @@
-﻿using ControlClassLibrary;
+﻿using AutoUpdateViaGitHubRelease;
+using ControlClassLibrary;
 using ShaderForm.Camera;
 using ShaderForm.Demo;
 using ShaderForm.Graph;
@@ -10,6 +11,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Numerics;
+using System.Reflection;
 using System.Windows.Forms;
 using Zenseless.ExampleFramework;
 
@@ -29,6 +31,19 @@ namespace ShaderForm
 		public FormMain()
 		{
 			InitializeComponent();
+			var update = new Update("danielscherzer", "ShaderForm", Assembly.GetExecutingAssembly(), Path.GetTempPath());
+			update.PropertyChanged += (s, a) => 
+			{
+				if(update.Available)
+				{
+					updateAvailableToolStripMenuItem.Click += (_, __) => 
+					{
+						update.Install();
+						Close();
+					};
+					updateAvailableToolStripMenuItem.Visible = true;
+				}
+			};
 
 			string demoFilter = DefaultFiles.GetDemoExtension() + " (*" + DefaultFiles.GetDemoExtension() + ")|*" + DefaultFiles.GetDemoExtension();
 			menuSizeSetting.SelectedIndexChanged += (sender, e) => glControl.Invalidate();

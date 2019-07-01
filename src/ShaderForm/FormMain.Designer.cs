@@ -48,6 +48,7 @@ namespace ShaderForm
 			this.menuUniforms = new System.Windows.Forms.ToolStripMenuItem();
 			this.addCameraUniformsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.copyCameraUniformsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.pasteCameraUniformsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.TextUniformAdd = new System.Windows.Forms.ToolStripTextBox();
 			this.menuShaders = new System.Windows.Forms.ToolStripMenuItem();
 			this.MenuShaderAdd = new System.Windows.Forms.ToolStripMenuItem();
@@ -63,7 +64,7 @@ namespace ShaderForm
 			this.sequenceBar1 = new ControlClassLibrary.SequenceBar();
 			this.textBoxLastMessage = new System.Windows.Forms.TextBox();
 			this.soundPlayerBar1 = new ControlClassLibrary.SeekBar();
-			this.pasteCameraUniformsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.updateAvailableToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.menuStrip.SuspendLayout();
 			this.panelSequence.SuspendLayout();
 			this.SuspendLayout();
@@ -98,7 +99,8 @@ namespace ShaderForm
             this.menuShaders,
             this.menuTextures,
             this.menuDemo,
-            this.menuSound});
+            this.menuSound,
+            this.updateAvailableToolStripMenuItem});
 			this.menuStrip.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
 			this.menuStrip.Location = new System.Drawing.Point(0, 0);
 			this.menuStrip.Name = "menuStrip";
@@ -251,6 +253,13 @@ namespace ShaderForm
 			this.copyCameraUniformsToolStripMenuItem.Text = "Copy Camera Uniforms";
 			this.copyCameraUniformsToolStripMenuItem.Click += new System.EventHandler(this.CopyCameraUniformsToolStripMenuItem_Click);
 			// 
+			// pasteCameraUniformsToolStripMenuItem
+			// 
+			this.pasteCameraUniformsToolStripMenuItem.Name = "pasteCameraUniformsToolStripMenuItem";
+			this.pasteCameraUniformsToolStripMenuItem.Size = new System.Drawing.Size(320, 34);
+			this.pasteCameraUniformsToolStripMenuItem.Text = "Paste Camera Uniforms";
+			this.pasteCameraUniformsToolStripMenuItem.Click += new System.EventHandler(this.PasteCameraUniformsToolStripMenuItem_Click);
+			// 
 			// TextUniformAdd
 			// 
 			this.TextUniformAdd.MaxLength = 40;
@@ -334,7 +343,7 @@ namespace ShaderForm
 			this.panelSequence.Controls.Add(this.sequenceBar1);
 			this.panelSequence.Dock = System.Windows.Forms.DockStyle.Bottom;
 			this.panelSequence.Location = new System.Drawing.Point(0, 884);
-			this.panelSequence.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+			this.panelSequence.Margin = new System.Windows.Forms.Padding(6);
 			this.panelSequence.Name = "panelSequence";
 			this.panelSequence.Size = new System.Drawing.Size(956, 63);
 			this.panelSequence.TabIndex = 5;
@@ -344,7 +353,7 @@ namespace ShaderForm
 			this.buttonReload.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
 			this.buttonReload.Image = global::ShaderForm.Properties.Resources.Restart_6322;
 			this.buttonReload.Location = new System.Drawing.Point(0, 0);
-			this.buttonReload.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+			this.buttonReload.Margin = new System.Windows.Forms.Padding(6);
 			this.buttonReload.Name = "buttonReload";
 			this.buttonReload.Size = new System.Drawing.Size(54, 63);
 			this.buttonReload.TabIndex = 6;
@@ -371,7 +380,7 @@ namespace ShaderForm
 			this.textBoxLastMessage.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.textBoxLastMessage.Font = new System.Drawing.Font("Lucida Console", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.textBoxLastMessage.Location = new System.Drawing.Point(0, 42);
-			this.textBoxLastMessage.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+			this.textBoxLastMessage.Margin = new System.Windows.Forms.Padding(6);
 			this.textBoxLastMessage.Multiline = true;
 			this.textBoxLastMessage.Name = "textBoxLastMessage";
 			this.textBoxLastMessage.ReadOnly = true;
@@ -395,12 +404,12 @@ namespace ShaderForm
 			this.soundPlayerBar1.TabIndex = 3;
 			this.soundPlayerBar1.TabStop = false;
 			// 
-			// pasteCameraUniformsToolStripMenuItem
+			// updateAvailableToolStripMenuItem
 			// 
-			this.pasteCameraUniformsToolStripMenuItem.Name = "pasteCameraUniformsToolStripMenuItem";
-			this.pasteCameraUniformsToolStripMenuItem.Size = new System.Drawing.Size(320, 34);
-			this.pasteCameraUniformsToolStripMenuItem.Text = "Paste Camera Uniforms";
-			this.pasteCameraUniformsToolStripMenuItem.Click += new System.EventHandler(this.PasteCameraUniformsToolStripMenuItem_Click);
+			this.updateAvailableToolStripMenuItem.Name = "updateAvailableToolStripMenuItem";
+			this.updateAvailableToolStripMenuItem.Size = new System.Drawing.Size(179, 34);
+			this.updateAvailableToolStripMenuItem.Text = "Update available";
+			this.updateAvailableToolStripMenuItem.Visible = false;
 			// 
 			// FormMain
 			// 
@@ -416,7 +425,7 @@ namespace ShaderForm
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.KeyPreview = true;
 			this.MainMenuStrip = this.menuStrip;
-			this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.Margin = new System.Windows.Forms.Padding(4);
 			this.Name = "FormMain";
 			this.Text = "ShaderForm";
 			this.TopMost = true;
@@ -467,6 +476,7 @@ namespace ShaderForm
 		private ToolStripMenuItem copyImageToolStripMenuItem;
 		private ToolStripMenuItem copyCameraUniformsToolStripMenuItem;
 		private ToolStripMenuItem pasteCameraUniformsToolStripMenuItem;
+		private ToolStripMenuItem updateAvailableToolStripMenuItem;
 	}
 }
 
