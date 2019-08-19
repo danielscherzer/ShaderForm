@@ -118,6 +118,7 @@
     </Compile>
     <Compile Include="Interfaces\ISetUniform.cs" />
     <Compile Include="DemoModelFactory\IShaderFile.cs" />
+    <Compile Include="RecentShaderFiles.cs" />
     <Compile Include="Visual\IShaders.cs" />
     <Compile Include="Interfaces\ITextures.cs" />
     <Compile Include="Interfaces\IUniforms.cs" />

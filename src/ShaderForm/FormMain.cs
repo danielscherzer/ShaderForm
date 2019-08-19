@@ -27,10 +27,12 @@ namespace ShaderForm
 		private FacadeCamera camera = new FacadeCamera();
 		private FormTracks tracks = new FormTracks();
 		private string lastMessage;
+		private RecentShaderFiles recentShaderFiles;
 
 		public FormMain()
 		{
 			InitializeComponent();
+			recentShaderFiles = new RecentShaderFiles(shaderFileName => NewDemo(shaderFileName));
 			var update = new Update("danielscherzer", "ShaderForm", Assembly.GetExecutingAssembly(), Path.GetTempPath());
 			update.PropertyChanged += (s, a) => 
 			{
@@ -93,10 +95,14 @@ namespace ShaderForm
 				keyState[e.KeyCode] = false;
 				camera.KeyChange(e.KeyCode, false);
 			};
+
+			menuDemo.DropDownItems.Add(recentShaderFiles.Menu);
 		}
 
 		private void AddShader(string fileName)
 		{
+			recentShaderFiles.Add(fileName);
+
 			demo.Shaders.AddUpdateShader(fileName);
 			//put new shader at cursor position
 			float time = demo.TimeSource.Position;
@@ -109,6 +115,10 @@ namespace ShaderForm
 			{
 				camera.Reset();
 				DemoLoader.LoadFromFile(demo, fileName, (obj, args) => log.Append(args.Message) );
+				foreach (var shaderPath in demo.Shaders)
+				{
+					recentShaderFiles.Add(shaderPath);
+				}
 			}
 			catch(Exception e)
 			{
@@ -149,15 +159,19 @@ namespace ShaderForm
 						}
 						else
 						{
-							//replace stuff
-							camera.Reset();
-							demo.Shaders.Clear();
-							demo.ShaderKeyframes.Clear();
-							AddShader(file);
+							NewDemo(file);
 						}
 					}
 				}
 			}
+		}
+
+		private void NewDemo(string shaderFile)
+		{
+			camera.Reset();
+			demo.Shaders.Clear();
+			demo.ShaderKeyframes.Clear();
+			AddShader(shaderFile);
 		}
 
 		private void GlControl_Paint(object sender, PaintEventArgs e)
@@ -343,6 +357,12 @@ namespace ShaderForm
 				menuBenchmark.Checked = Convert.ToBoolean(RegistryLoader.LoadValue(Name, "showFPS", false));
 				menuCompact.Checked = Convert.ToBoolean(RegistryLoader.LoadValue(Name, "compact", false));
 				menuOnTop.Checked = TopMost;
+				var recentShaderFilesString = Convert.ToString(RegistryLoader.LoadValue(Name, "recentFiles", string.Empty));
+				foreach(var recentShaderFile in recentShaderFilesString.Split('?'))
+				{
+					recentShaderFiles.Add(recentShaderFile);
+				}
+				
 
 				String[] arguments = Environment.GetCommandLineArgs();
 				if (arguments.Length > 1)
@@ -373,6 +393,7 @@ namespace ShaderForm
 				RegistryLoader.SaveValue(Name, "time", demo.TimeSource.Position);
 				RegistryLoader.SaveValue(Name, "showFPS", menuBenchmark.Checked);
 				RegistryLoader.SaveValue(Name, "compact", menuCompact.Checked);
+				RegistryLoader.SaveValue(Name, "recentFiles", string.Join("?", recentShaderFiles.FileNames));
 
 				multiGraph.SaveLayout();
 				log.SaveLayout();
