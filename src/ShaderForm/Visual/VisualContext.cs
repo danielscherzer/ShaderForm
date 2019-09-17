@@ -19,7 +19,7 @@
 			GL.Disable(EnableCap.DepthTest);
 			GL.ClearColor(1, 0, 0, 0);
 
-			surface = new DoubleBufferedFbo();
+			renderSurfaces = new PingPongFbo(2);
 
 			copyToScreen = new PostProcessing(contentManager.LoadPixelShader("copy.frag"));
 			shaderDefault = contentManager.LoadPixelShader("Checker.frag");
@@ -69,15 +69,15 @@
 				++id;
 			}
 			//bind last frame as texture
-			for(int i = 0; i < surface.Last.Count; ++i)
+			for(int i = 0; i < renderSurfaces.Last.Count; ++i)
 			{
 				GL.ActiveTexture(TextureUnit.Texture0 + id);
-				surface.Last[i].Activate();
+				renderSurfaces.Last[i].Activate();
 				shaderCurrent.Uniform($"texLastFrame{i}", id);
 				++id;
 			}
 
-			surface.Render();
+			renderSurfaces.Render();
 
 			id = 0;
 			foreach (var tex in textures)
@@ -87,10 +87,10 @@
 				++id;
 			}
 			//unbind last frame as texture
-			for (int i = 0; i < surface.Last.Count; ++i)
+			for (int i = 0; i < renderSurfaces.Last.Count; ++i)
 			{
 				GL.ActiveTexture(TextureUnit.Texture0 + id);
-				surface.Last[i].Deactivate();
+				renderSurfaces.Last[i].Deactivate();
 				++id;
 			}
 			GL.ActiveTexture(TextureUnit.Texture0);
@@ -99,7 +99,7 @@
 
 		public void UpdateSurfaceSize(int width, int height)
 		{
-			surface.UpdateSurfaceSize(width, height);
+			renderSurfaces.UpdateSurfaceSize(width, height);
 		}
 
 		public bool AddUpdateTexture(string fileName)
@@ -208,13 +208,13 @@
 		public void Draw(int width, int height)
 		{
 			GL.Viewport(0, 0, width, height);
-			copyToScreen.Draw(surface.Active);
-			surface.SwapRenderBuffer();
+			copyToScreen.Draw(renderSurfaces.ActiveFirst);
+			renderSurfaces.SwapRenderBuffer();
 		}
 
 		public Bitmap GetScreenshot()
 		{
-			return TextureLoaderDrawing.SaveToBitmap(surface.Active);
+			return TextureLoaderDrawing.SaveToBitmap(renderSurfaces.ActiveFirst);
 		}
 
 		public float UpdateTime { get { return (float)(glTimer.ResultLong * 1e-9); } }
@@ -224,7 +224,7 @@
 		private List<string> textureNames = new List<string>();
 		private List<ITexture> textures = new List<ITexture>();
 		private Dictionary<string, IShaderProgram> shaders = new Dictionary<string, IShaderProgram>();
-		private DoubleBufferedFbo surface;
+		private PingPongFbo renderSurfaces;
 		private PostProcessing copyToScreen;
 		private IShaderProgram shaderCurrent;
 		private IShaderProgram shaderDefault;
@@ -237,7 +237,7 @@
 			foreach (var tex in textures) tex.Dispose();
 			shaderDefault.Dispose();
 			copyToScreen.Dispose();
-			surface.Dispose();
+			renderSurfaces.Dispose();
 		}
 	}
 }

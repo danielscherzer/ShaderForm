@@ -131,7 +131,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Visual\DoubleBufferedFbo.cs" />
+    <Compile Include="Visual\PingPongFbo.cs" />
     <Compile Include="Demo\ShaderKeyframes.cs" />
     <Compile Include="DemoModelFactory\Shaders.cs" />
     <Compile Include="Visual\ShaderLoadException.cs" />

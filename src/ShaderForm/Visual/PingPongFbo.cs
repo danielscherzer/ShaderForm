@@ -10,13 +10,19 @@ namespace ShaderForm.Visual
 	/// 
 	/// </summary>
 	/// <seealso cref="Disposable" />
-	public class DoubleBufferedFbo : Disposable
+	public class PingPongFbo : Disposable
 	{
 		/// <summary>
-		/// Initializes a new instance of the <see cref="DoubleBufferedFbo"/> class.
+		/// Initializes a new instance of the <see cref="PingPongFbo"/> class.
 		/// </summary>
-		public DoubleBufferedFbo()
+		public PingPongFbo(uint renderTargetCount)
 		{
+			var drawBufferList = new List<DrawBuffersEnum>();
+			for(int i = 0; i < renderTargetCount; ++i)
+			{
+				drawBufferList.Add(DrawBuffersEnum.ColorAttachment0 + i);
+			}
+			drawBuffers = drawBufferList.ToArray();
 			CreateFBOs(1, 1);
 			activeFBO = fboA;
 		}
@@ -27,7 +33,9 @@ namespace ShaderForm.Visual
 		/// <value>
 		/// The active.
 		/// </value>
-		public ITexture2D Active { get { return activeFBO.Texture; } }
+		public ITexture2D ActiveFirst { get { return activeFBO.Texture; } }
+		public IReadOnlyList<ITexture2D> GetActiveRenderTargets() => activeFBO.Textures;
+
 		/// <summary>
 		/// Gets the last.
 		/// </summary>
@@ -85,7 +93,7 @@ namespace ShaderForm.Visual
 			fboB.Dispose();
 		}
 
-		private DrawBuffersEnum[] drawBuffers = new DrawBuffersEnum[] { DrawBuffersEnum.ColorAttachment0, DrawBuffersEnum.ColorAttachment1 };
+		private DrawBuffersEnum[] drawBuffers;
 		private FBO fboA, fboB, activeFBO;
 		private FBO LastFBO { get { return (activeFBO == fboA) ? fboB : fboA; } }
 
@@ -93,8 +101,11 @@ namespace ShaderForm.Visual
 		{
 			fboA = new FBO(CreateTexture(width, height));
 			fboB = new FBO(CreateTexture(width, height));
-			fboA.Attach(CreateTexture(width, height));
-			fboB.Attach(CreateTexture(width, height));
+			for (int i = 1; i < drawBuffers.Length; ++i)
+			{
+				fboA.Attach(CreateTexture(width, height));
+				fboB.Attach(CreateTexture(width, height));
+			}
 		}
 
 		private Texture2dGL CreateTexture(int width, int height)
