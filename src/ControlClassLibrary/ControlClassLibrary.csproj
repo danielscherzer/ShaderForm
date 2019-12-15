@@ -87,10 +87,10 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Zenseless.Patterns">
-      <Version>0.5.101</Version>
+      <Version>0.5.140</Version>
     </PackageReference>
     <PackageReference Include="Zenseless.Sound">
-      <Version>0.5.101</Version>
+      <Version>0.5.140</Version>
     </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -173,7 +173,7 @@
 				}
 			}
 			var fragmentShaderCode = File.ReadAllText(fileName);
-			var expandedFragmentShaderCode = ShaderLoader.ResolveIncludes(fragmentShaderCode, GetIncludeCode);
+			var expandedFragmentShaderCode = GLSLhelper.Transformations.ExpandIncludes(fragmentShaderCode, GetIncludeCode);
 			var fragmentShader = new ShaderGL(Zenseless.HLGL.ShaderType.FragmentShader);
 			if (!fragmentShader.Compile(expandedFragmentShaderCode))
 			{
