@@ -13,7 +13,6 @@ using System.Linq;
 using System.Numerics;
 using System.Reflection;
 using System.Windows.Forms;
-using Zenseless.ExampleFramework;
 
 namespace ShaderForm
 {

@@ -31,7 +31,10 @@
 			this.components = new System.ComponentModel.Container();
 			this.playing = new System.Windows.Forms.CheckBox();
 			this.timerUpdateMarkerBar = new System.Windows.Forms.Timer(this.components);
+			this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+			this.toolStripComboBox1 = new System.Windows.Forms.ToolStripComboBox();
 			this.markerBarPosition = new ControlClassLibrary.FloatValueBar();
+			this.contextMenuStrip1.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// playing
@@ -44,9 +47,9 @@
 			this.playing.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
 			this.playing.Image = global::ControlClassLibrary.Properties.Resources.PlayHS;
 			this.playing.Location = new System.Drawing.Point(0, 0);
-			this.playing.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+			this.playing.Margin = new System.Windows.Forms.Padding(6);
 			this.playing.Name = "playing";
-			this.playing.Size = new System.Drawing.Size(54, 32);
+			this.playing.Size = new System.Drawing.Size(54, 42);
 			this.playing.TabIndex = 1;
 			this.playing.UseVisualStyleBackColor = true;
 			this.playing.CheckedChanged += new System.EventHandler(this.Playing_CheckedChanged);
@@ -55,6 +58,28 @@
 			// 
 			this.timerUpdateMarkerBar.Interval = 10;
 			this.timerUpdateMarkerBar.Tick += new System.EventHandler(this.TimerUpdateMarkerBar_Tick);
+			// 
+			// contextMenuStrip1
+			// 
+			this.contextMenuStrip1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+			this.contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(28, 28);
+			this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripComboBox1});
+			this.contextMenuStrip1.Name = "contextMenuStrip1";
+			this.contextMenuStrip1.ShowImageMargin = false;
+			this.contextMenuStrip1.ShowItemToolTips = false;
+			this.contextMenuStrip1.Size = new System.Drawing.Size(246, 84);
+			// 
+			// toolStripComboBox1
+			// 
+			this.toolStripComboBox1.Items.AddRange(new object[] {
+            "100Hz",
+            "60Hz",
+            "10Hz",
+            "1Hz"});
+			this.toolStripComboBox1.Name = "toolStripComboBox1";
+			this.toolStripComboBox1.Size = new System.Drawing.Size(121, 38);
+			this.toolStripComboBox1.TextChanged += new System.EventHandler(this.ToolStripComboBox1_TextChanged);
 			// 
 			// markerBarPosition
 			// 
@@ -73,11 +98,12 @@
 			this.markerBarPosition.Min = 0F;
 			this.markerBarPosition.Name = "markerBarPosition";
 			this.markerBarPosition.ShowText = false;
-			this.markerBarPosition.Size = new System.Drawing.Size(447, 30);
+			this.markerBarPosition.Size = new System.Drawing.Size(447, 40);
 			this.markerBarPosition.TabIndex = 0;
 			this.markerBarPosition.Text = "markerBar1";
 			this.markerBarPosition.Value = 3F;
 			this.markerBarPosition.ValueChanged += new System.EventHandler(this.MarkerBarPosition_ValueChanged);
+			this.markerBarPosition.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MarkerBarPosition_MouseDown);
 			// 
 			// SeekBar
 			// 
@@ -87,9 +113,10 @@
 			this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
 			this.Controls.Add(this.playing);
 			this.Controls.Add(this.markerBarPosition);
-			this.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+			this.Margin = new System.Windows.Forms.Padding(6);
 			this.Name = "SeekBar";
-			this.Size = new System.Drawing.Size(500, 32);
+			this.Size = new System.Drawing.Size(500, 42);
+			this.contextMenuStrip1.ResumeLayout(false);
 			this.ResumeLayout(false);
 
 		}
@@ -99,5 +126,7 @@
 		private FloatValueBar markerBarPosition;
 		private System.Windows.Forms.CheckBox playing;
 		private System.Windows.Forms.Timer timerUpdateMarkerBar;
+		private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+		private System.Windows.Forms.ToolStripComboBox toolStripComboBox1;
 	}
 }

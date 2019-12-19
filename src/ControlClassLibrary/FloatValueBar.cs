@@ -123,6 +123,7 @@ namespace ControlClassLibrary
 		}
 		private void MarkerBar_MouseDown(object sender, MouseEventArgs e)
 		{
+			if (e.Button != MouseButtons.Left) return;
 			m_bMarking = true;
 			MarkerBar_MouseMove(null, e);
 		}
@@ -140,6 +141,7 @@ namespace ControlClassLibrary
 
 		private void MarkerBar_MouseUp(object sender, MouseEventArgs e)
 		{
+			if (e.Button != MouseButtons.Left) return;
 			m_bMarking = false;
 			ValueChanged?.Invoke(this, null);
 		}

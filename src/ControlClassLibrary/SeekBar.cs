@@ -34,12 +34,13 @@
 		public SeekBar()
 		{
 			InitializeComponent();
-			defaultTimeSource =	new LoopableStopWatch(100.0f);
+			defaultTimeSource = new LoopableStopWatch(100.0f);
 			timeSource = defaultTimeSource;
 			timeSource.IsLooping = true;
 			timeSource.TimeFinished += CallOnFinished;
 			markerBarPosition.Max = timeSource.Length;
 			Playing = false;
+			toolStripComboBox1.Text = "60Hz";
 		}
 
 		public bool Playing
@@ -67,6 +68,12 @@
 		{
 			get { return markerBarPosition.Value; }
 			set	{ markerBarPosition.Value = value; }
+		}
+
+		public int UpdateIntervalMsec
+		{
+			get => timerUpdateMarkerBar.Interval;
+			set => timerUpdateMarkerBar.Interval = value;
 		}
 
 		public float Length { get { return timeSource.Length; } }
@@ -98,6 +105,20 @@
 			PositionChanged?.Invoke(Position);
 			if (timerChange) return;
 			timeSource.Position = Position;
+		}
+
+		private void MarkerBarPosition_MouseDown(object sender, MouseEventArgs e)
+		{
+			if(e.Button == MouseButtons.Right) contextMenuStrip1.Show(MousePosition);
+		}
+
+		private void ToolStripComboBox1_TextChanged(object sender, EventArgs e)
+		{
+			var strValue = toolStripComboBox1.Text.ToLowerInvariant().Replace("hz", string.Empty);
+			if(int.TryParse(strValue, out var value))
+			{
+				timerUpdateMarkerBar.Interval = (int)(1000.0 / value);
+			}
 		}
 	}
 }
