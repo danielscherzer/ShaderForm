@@ -60,6 +60,7 @@ namespace ShaderForm.Demo
 			visualContext.SetUniform("u_resolution", bufferWidth, bufferHeight);
 
 			visualContext.SetUniform("iMouse", mouseX, mouseY, mouseButton);
+			visualContext.SetUniform("u_mouse", mouseX, mouseY);
 
 			uniforms.Interpolate(TimeSource.Position, (name, value) => visualContext.SetUniform(name, value));
 
