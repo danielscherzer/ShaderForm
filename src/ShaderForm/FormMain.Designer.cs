@@ -87,9 +87,11 @@ namespace ShaderForm
 			this.glControl.MouseDown += new System.Windows.Forms.MouseEventHandler(this.GlControl_MouseDown);
 			this.glControl.MouseMove += new System.Windows.Forms.MouseEventHandler(this.GlControl_MouseMove);
 			this.glControl.MouseUp += new System.Windows.Forms.MouseEventHandler(this.GlControl_MouseUp);
+			this.glControl.Resize += new System.EventHandler(this.glControl_Resize);
 			// 
 			// menuStrip
 			// 
+			this.menuStrip.GripMargin = new System.Windows.Forms.Padding(2, 2, 0, 2);
 			this.menuStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
 			this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.menuHelp,
@@ -116,7 +118,7 @@ namespace ShaderForm
 			this.menuHelp.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
 			this.menuHelp.Name = "menuHelp";
 			this.menuHelp.ShortcutKeys = System.Windows.Forms.Keys.F1;
-			this.menuHelp.Size = new System.Drawing.Size(34, 34);
+			this.menuHelp.Size = new System.Drawing.Size(40, 34);
 			this.menuHelp.Text = "?";
 			// 
 			// menuBenchmark
@@ -124,7 +126,7 @@ namespace ShaderForm
 			this.menuBenchmark.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
 			this.menuBenchmark.CheckOnClick = true;
 			this.menuBenchmark.Name = "menuBenchmark";
-			this.menuBenchmark.Size = new System.Drawing.Size(58, 34);
+			this.menuBenchmark.Size = new System.Drawing.Size(64, 34);
 			this.menuBenchmark.Text = "FPS";
 			// 
 			// menuWindow
@@ -140,7 +142,7 @@ namespace ShaderForm
             this.cameraWindowToolStripMenuItem,
             this.tracksWindowToolStripMenuItem});
 			this.menuWindow.Name = "menuWindow";
-			this.menuWindow.Size = new System.Drawing.Size(101, 34);
+			this.menuWindow.Size = new System.Drawing.Size(107, 34);
 			this.menuWindow.Text = "Window";
 			// 
 			// menuSizeSetting
@@ -170,7 +172,7 @@ namespace ShaderForm
 			// copyImageToolStripMenuItem
 			// 
 			this.copyImageToolStripMenuItem.Name = "copyImageToolStripMenuItem";
-			this.copyImageToolStripMenuItem.Size = new System.Drawing.Size(374, 34);
+			this.copyImageToolStripMenuItem.Size = new System.Drawing.Size(401, 40);
 			this.copyImageToolStripMenuItem.Text = "Copy Image";
 			// 
 			// menuScreenshot
@@ -179,7 +181,7 @@ namespace ShaderForm
 			this.menuScreenshot.Name = "menuScreenshot";
 			this.menuScreenshot.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.S)));
-			this.menuScreenshot.Size = new System.Drawing.Size(374, 34);
+			this.menuScreenshot.Size = new System.Drawing.Size(401, 40);
 			this.menuScreenshot.Text = "Save Image File";
 			// 
 			// menuFullscreen
@@ -188,7 +190,7 @@ namespace ShaderForm
 			this.menuFullscreen.CheckOnClick = true;
 			this.menuFullscreen.Name = "menuFullscreen";
 			this.menuFullscreen.ShortcutKeys = System.Windows.Forms.Keys.F11;
-			this.menuFullscreen.Size = new System.Drawing.Size(374, 34);
+			this.menuFullscreen.Size = new System.Drawing.Size(401, 40);
 			this.menuFullscreen.Text = "Fullscreen";
 			this.menuFullscreen.ToolTipText = "F11";
 			this.menuFullscreen.CheckedChanged += new System.EventHandler(this.MenuFullscreen_CheckedChanged);
@@ -198,7 +200,7 @@ namespace ShaderForm
 			this.menuCompact.CheckOnClick = true;
 			this.menuCompact.Name = "menuCompact";
 			this.menuCompact.ShortcutKeys = System.Windows.Forms.Keys.F12;
-			this.menuCompact.Size = new System.Drawing.Size(374, 34);
+			this.menuCompact.Size = new System.Drawing.Size(401, 40);
 			this.menuCompact.Text = "Compact";
 			this.menuCompact.CheckStateChanged += new System.EventHandler(this.MenuCompact_CheckStateChanged);
 			// 
@@ -207,25 +209,25 @@ namespace ShaderForm
 			this.menuOnTop.CheckOnClick = true;
 			this.menuOnTop.Name = "menuOnTop";
 			this.menuOnTop.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.T)));
-			this.menuOnTop.Size = new System.Drawing.Size(374, 34);
+			this.menuOnTop.Size = new System.Drawing.Size(401, 40);
 			this.menuOnTop.Text = "OnTop";
 			// 
 			// logToolStripMenuItem
 			// 
 			this.logToolStripMenuItem.Name = "logToolStripMenuItem";
-			this.logToolStripMenuItem.Size = new System.Drawing.Size(374, 34);
+			this.logToolStripMenuItem.Size = new System.Drawing.Size(401, 40);
 			this.logToolStripMenuItem.Text = "Log Window";
 			// 
 			// cameraWindowToolStripMenuItem
 			// 
 			this.cameraWindowToolStripMenuItem.Name = "cameraWindowToolStripMenuItem";
-			this.cameraWindowToolStripMenuItem.Size = new System.Drawing.Size(374, 34);
+			this.cameraWindowToolStripMenuItem.Size = new System.Drawing.Size(401, 40);
 			this.cameraWindowToolStripMenuItem.Text = "Camera Window";
 			// 
 			// tracksWindowToolStripMenuItem
 			// 
 			this.tracksWindowToolStripMenuItem.Name = "tracksWindowToolStripMenuItem";
-			this.tracksWindowToolStripMenuItem.Size = new System.Drawing.Size(374, 34);
+			this.tracksWindowToolStripMenuItem.Size = new System.Drawing.Size(401, 40);
 			this.tracksWindowToolStripMenuItem.Text = "Tracks Window";
 			// 
 			// menuUniforms
@@ -236,32 +238,33 @@ namespace ShaderForm
             this.pasteCameraUniformsToolStripMenuItem,
             this.TextUniformAdd});
 			this.menuUniforms.Name = "menuUniforms";
-			this.menuUniforms.Size = new System.Drawing.Size(109, 34);
+			this.menuUniforms.Size = new System.Drawing.Size(115, 34);
 			this.menuUniforms.Text = "Uniforms";
 			// 
 			// addCameraUniformsToolStripMenuItem
 			// 
 			this.addCameraUniformsToolStripMenuItem.Name = "addCameraUniformsToolStripMenuItem";
-			this.addCameraUniformsToolStripMenuItem.Size = new System.Drawing.Size(320, 34);
+			this.addCameraUniformsToolStripMenuItem.Size = new System.Drawing.Size(347, 40);
 			this.addCameraUniformsToolStripMenuItem.Text = "Add Camera Uniforms";
 			this.addCameraUniformsToolStripMenuItem.ToolTipText = "C";
 			// 
 			// copyCameraUniformsToolStripMenuItem
 			// 
 			this.copyCameraUniformsToolStripMenuItem.Name = "copyCameraUniformsToolStripMenuItem";
-			this.copyCameraUniformsToolStripMenuItem.Size = new System.Drawing.Size(320, 34);
+			this.copyCameraUniformsToolStripMenuItem.Size = new System.Drawing.Size(347, 40);
 			this.copyCameraUniformsToolStripMenuItem.Text = "Copy Camera Uniforms";
 			this.copyCameraUniformsToolStripMenuItem.Click += new System.EventHandler(this.CopyCameraUniformsToolStripMenuItem_Click);
 			// 
 			// pasteCameraUniformsToolStripMenuItem
 			// 
 			this.pasteCameraUniformsToolStripMenuItem.Name = "pasteCameraUniformsToolStripMenuItem";
-			this.pasteCameraUniformsToolStripMenuItem.Size = new System.Drawing.Size(320, 34);
+			this.pasteCameraUniformsToolStripMenuItem.Size = new System.Drawing.Size(347, 40);
 			this.pasteCameraUniformsToolStripMenuItem.Text = "Paste Camera Uniforms";
 			this.pasteCameraUniformsToolStripMenuItem.Click += new System.EventHandler(this.PasteCameraUniformsToolStripMenuItem_Click);
 			// 
 			// TextUniformAdd
 			// 
+			this.TextUniformAdd.Font = new System.Drawing.Font("Segoe UI", 9F);
 			this.TextUniformAdd.MaxLength = 40;
 			this.TextUniformAdd.Name = "TextUniformAdd";
 			this.TextUniformAdd.Size = new System.Drawing.Size(100, 35);
@@ -274,14 +277,14 @@ namespace ShaderForm
 			this.menuShaders.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.MenuShaderAdd});
 			this.menuShaders.Name = "menuShaders";
-			this.menuShaders.Size = new System.Drawing.Size(98, 34);
+			this.menuShaders.Size = new System.Drawing.Size(104, 34);
 			this.menuShaders.Text = "Shaders";
 			// 
 			// MenuShaderAdd
 			// 
 			this.MenuShaderAdd.Name = "MenuShaderAdd";
 			this.MenuShaderAdd.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.H)));
-			this.MenuShaderAdd.Size = new System.Drawing.Size(231, 34);
+			this.MenuShaderAdd.Size = new System.Drawing.Size(258, 40);
 			this.MenuShaderAdd.Text = "Add...";
 			// 
 			// menuTextures
@@ -289,13 +292,13 @@ namespace ShaderForm
 			this.menuTextures.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.MenuTextureAdd});
 			this.menuTextures.Name = "menuTextures";
-			this.menuTextures.Size = new System.Drawing.Size(101, 34);
+			this.menuTextures.Size = new System.Drawing.Size(107, 34);
 			this.menuTextures.Text = "Textures";
 			// 
 			// MenuTextureAdd
 			// 
 			this.MenuTextureAdd.Name = "MenuTextureAdd";
-			this.MenuTextureAdd.Size = new System.Drawing.Size(157, 34);
+			this.MenuTextureAdd.Size = new System.Drawing.Size(184, 40);
 			this.MenuTextureAdd.Text = "Add...";
 			// 
 			// menuDemo
@@ -305,13 +308,13 @@ namespace ShaderForm
             this.menuLoad,
             this.menuSave});
 			this.menuDemo.Name = "menuDemo";
-			this.menuDemo.Size = new System.Drawing.Size(81, 34);
+			this.menuDemo.Size = new System.Drawing.Size(87, 34);
 			this.menuDemo.Text = "Demo";
 			// 
 			// clearToolStripMenuItem
 			// 
 			this.clearToolStripMenuItem.Name = "clearToolStripMenuItem";
-			this.clearToolStripMenuItem.Size = new System.Drawing.Size(239, 34);
+			this.clearToolStripMenuItem.Size = new System.Drawing.Size(266, 40);
 			this.clearToolStripMenuItem.Text = "Clear";
 			this.clearToolStripMenuItem.Click += new System.EventHandler(this.ClearToolStripMenuItem_Click);
 			// 
@@ -319,21 +322,21 @@ namespace ShaderForm
 			// 
 			this.menuLoad.Name = "menuLoad";
 			this.menuLoad.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-			this.menuLoad.Size = new System.Drawing.Size(239, 34);
+			this.menuLoad.Size = new System.Drawing.Size(266, 40);
 			this.menuLoad.Text = "Load...";
 			// 
 			// menuSave
 			// 
 			this.menuSave.Name = "menuSave";
 			this.menuSave.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-			this.menuSave.Size = new System.Drawing.Size(239, 34);
+			this.menuSave.Size = new System.Drawing.Size(266, 40);
 			this.menuSave.Text = "Save...";
 			// 
 			// menuSound
 			// 
 			this.menuSound.Name = "menuSound";
 			this.menuSound.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.D)));
-			this.menuSound.Size = new System.Drawing.Size(84, 34);
+			this.menuSound.Size = new System.Drawing.Size(90, 34);
 			this.menuSound.Text = "Sound";
 			this.menuSound.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MenuSound_MouseDown);
 			// 
@@ -341,7 +344,7 @@ namespace ShaderForm
 			// 
 			this.updateAvailableToolStripMenuItem.ForeColor = System.Drawing.Color.Red;
 			this.updateAvailableToolStripMenuItem.Name = "updateAvailableToolStripMenuItem";
-			this.updateAvailableToolStripMenuItem.Size = new System.Drawing.Size(185, 34);
+			this.updateAvailableToolStripMenuItem.Size = new System.Drawing.Size(191, 34);
 			this.updateAvailableToolStripMenuItem.Text = "Update available!";
 			this.updateAvailableToolStripMenuItem.Visible = false;
 			// 
@@ -411,6 +414,7 @@ namespace ShaderForm
 			this.soundPlayerBar1.Size = new System.Drawing.Size(956, 46);
 			this.soundPlayerBar1.TabIndex = 3;
 			this.soundPlayerBar1.TabStop = false;
+			this.soundPlayerBar1.UpdateIntervalMsec = 16;
 			// 
 			// FormMain
 			// 

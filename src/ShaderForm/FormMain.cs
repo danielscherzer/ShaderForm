@@ -20,14 +20,13 @@ namespace ShaderForm
 	public partial class FormMain : Form
 	{
 		private DemoModel demo;
-		private int mouseButton = 0;
-		private Vector2 mousePos;
-		private MultiGraph multiGraph = new MultiGraph();
-		private FacadeFormMessages log = new FacadeFormMessages();
-		private FacadeCamera camera = new FacadeCamera();
-		private FormTracks tracks = new FormTracks();
+		private readonly TextureSpaceParameters parameters = new TextureSpaceParameters();
+		private readonly MultiGraph multiGraph = new MultiGraph();
+		private readonly FacadeFormMessages log = new FacadeFormMessages();
+		private readonly FacadeCamera camera = new FacadeCamera();
+		private readonly FormTracks tracks = new FormTracks();
+		private readonly RecentShaderFiles recentShaderFiles;
 		private string lastMessage;
-		private RecentShaderFiles recentShaderFiles;
 
 		public FormMain()
 		{
@@ -176,30 +175,11 @@ namespace ShaderForm
 
 		private void GlControl_Paint(object sender, PaintEventArgs e)
 		{
-			float factor = 1.0f;
+			parameters.ParseFactor(menuSizeSetting.Text);
+			camera.Update(parameters.MouseX, parameters.MouseY, 1 == parameters.MouseButton);
 			try
 			{
-				factor = float.Parse(menuSizeSetting.Text.Substring(1), CultureInfo.InvariantCulture);
-			}
-			catch (Exception) { };
-
-			int width = glControl.Width;
-			int height = glControl.Height;
-
-			if ('x' == menuSizeSetting.Text[0])
-			{
-				width = (int)Math.Round(glControl.Width * factor);
-				height = (int)Math.Round(glControl.Height * factor);
-			}
-			else
-			{
-				width = (int)factor;
-				height = (int)factor;
-			}
-			camera.Update(mousePos.X * width, mousePos.Y * height, 1 == mouseButton);
-			try
-			{
-				if (!demo.UpdateBuffer((int)Math.Round(mousePos.X * width), (int)Math.Round(mousePos.Y * height), mouseButton, width, height))
+				if (!demo.UpdateBuffer(parameters.MouseX, parameters.MouseY, parameters.MouseButton, parameters.Width, parameters.Height))
 				{
 					textBoxLastMessage.Text = lastMessage;
 					textBoxLastMessage.Visible = true;
@@ -449,55 +429,49 @@ namespace ShaderForm
 
 		private void GlControl_MouseDown(object sender, MouseEventArgs e)
 		{
-			switch(e.Button)
+			parameters.SetMousePosition(e.X, e.Y);
+			switch (e.Button)
 			{
-				case MouseButtons.Left: mouseButton = 1; break;
-				case MouseButtons.Middle: mouseButton = 2; break;
-				case MouseButtons.Right: mouseButton = 3; ShowPixelInformation(e.X, e.Y); break;
+				case MouseButtons.Left: parameters.MouseButton = 1; break;
+				case MouseButtons.Middle: parameters.MouseButton = 2; break;
+				case MouseButtons.Right: parameters.MouseButton = 3; ShowPixelInformation(); break;
 			}
 			glControl.Invalidate();
 		}
 
-		private void ShowPixelInformation(int x, int y)
+		private void ShowPixelInformation()
 		{
-			x = MathHelper.Clamp(x, 0, glControl.Width - 1);
-			y = MathHelper.Clamp(y, 0, glControl.Height - 1);
-
-			var id = x + glControl.Width * (glControl.Height - 1 - y);
+			var id = parameters.MouseX + parameters.Width * parameters.MouseY;
 			var buffer = demo.GetBuffer();
 			try
 			{
 				var color = buffer[id];
-				this.Text = $"r:{color.X} g:{color.Y} b:{color.Z} a:{color.W}";
+				Text = $"r:{color.X} g:{color.Y} b:{color.Z} a:{color.W}";
 				Invalidate();
 			}
 			catch(IndexOutOfRangeException e)
 			{
-				throw new IndexOutOfRangeException($"Buffer size is {buffer.Length}; access at {id}", e);
+				throw new IndexOutOfRangeException($"Buffer size is {buffer.Length}; access at {id} with mouse at {parameters.MouseX}:{parameters.MouseY}", e);
 			}
 		}
 
 		private void GlControl_MouseMove(object sender, MouseEventArgs e)
 		{
-			var m = e.Location;
-			//normalized mouse pos
-			float mouseX = m.X / (float)glControl.Width;
-			float mouseY = (glControl.Height - 1 - m.Y) / (float)glControl.Height;
-			mousePos = new Vector2(mouseX, mouseY);
-
+			parameters.SetMousePosition(e.X, e.Y);
+			if (e.Button == MouseButtons.Right)
+			{
+				ShowPixelInformation();
+			}
 			if (!demo.TimeSource.IsRunning)
 			{
 				glControl.Invalidate(); //TODO: otherwise time stops during update?!
-			}
-			if(e.Button == MouseButtons.Right)
-			{
-				ShowPixelInformation(e.X, e.Y);
 			}
 		}
 
 		private void GlControl_MouseUp(object sender, MouseEventArgs e)
 		{
-			mouseButton = 0;
+			parameters.SetMousePosition(e.X, e.Y);
+			parameters.MouseButton = 0;
 			glControl.Invalidate();
 		}
 
@@ -661,6 +635,11 @@ namespace ShaderForm
 		private void PasteCameraUniformsToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			camera.PasteKeyFrames(demo.Uniforms);
+		}
+
+		private void glControl_Resize(object sender, EventArgs e)
+		{
+			parameters.SetControlSize(glControl.Width, glControl.Height);
 		}
 	}
 }

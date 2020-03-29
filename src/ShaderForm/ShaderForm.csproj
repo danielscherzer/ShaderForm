@@ -84,6 +84,7 @@
     <Compile Include="FormTracks.Designer.cs">
       <DependentUpon>FormTracks.cs</DependentUpon>
     </Compile>
+    <Compile Include="TextureSpaceParameters.cs" />
     <Compile Include="Graph\FacadeKeyframesVisualisation.cs" />
     <Compile Include="Dialogs.cs" />
     <Compile Include="Camera\FormCamera.cs">
