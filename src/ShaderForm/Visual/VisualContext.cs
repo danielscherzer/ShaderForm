@@ -207,9 +207,10 @@
 			}
 		}
 
-		public void Draw(int width, int height)
+		public void Draw(int width, int height, bool filter)
 		{
 			GL.Viewport(0, 0, width, height);
+			renderSurfaces.ActiveFirst.Filter = filter ? TextureFilterMode.Linear : TextureFilterMode.Nearest;
 			copyToScreen.Draw(renderSurfaces.ActiveFirst);
 			renderSurfaces.SwapRenderBuffer();
 		}

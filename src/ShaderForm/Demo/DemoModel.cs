@@ -37,9 +37,9 @@ namespace ShaderForm.Demo
 			ShaderKeyframes.Clear();
 		}
 
-		public void Draw(int width, int height)
+		public void Draw(int width, int height, bool filter)
 		{
-			visualContext.Draw(width, height);
+			visualContext.Draw(width, height, filter);
 		}
 
 		public Bitmap GetScreenshot()

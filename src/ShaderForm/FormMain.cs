@@ -190,7 +190,7 @@ namespace ShaderForm
 				}
 			}
 			catch { /* We do not care about errors at this level */ }
-			demo.Draw(glControl.Width, glControl.Height);
+			demo.Draw(glControl.Width, glControl.Height, !parameters.AbsoluteSize);
 			glControl.SwapBuffers();
 
 			menuBenchmark.Text = menuBenchmark.Checked ? $"{1 / demo.UpdateTime:F2}FPS" : $"{demo.UpdateTime * 1e3f:F1}ms";
@@ -447,6 +447,9 @@ namespace ShaderForm
 			{
 				var color = buffer[id];
 				Text = $"r:{color.X} g:{color.Y} b:{color.Z} a:{color.W}";
+				//ContextMenuStrip cm = new ContextMenuStrip();
+				//cm.Items.Add(Text);
+				//cm.Show(MousePosition);
 				Invalidate();
 			}
 			catch(IndexOutOfRangeException e)
