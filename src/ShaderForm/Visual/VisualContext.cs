@@ -6,8 +6,10 @@
 	using System.Diagnostics;
 	using System.Drawing;
 	using System.IO;
-	using System.Reflection;
-	using Zenseless.HLGL;
+    using System.Numerics;
+    using System.Reflection;
+    using System.Runtime.InteropServices;
+    using Zenseless.HLGL;
 	using Zenseless.OpenGL;
 	using Zenseless.Patterns;
 
@@ -215,6 +217,16 @@
 		public Bitmap GetScreenshot()
 		{
 			return TextureLoaderDrawing.SaveToBitmap(renderSurfaces.ActiveFirst);
+		}
+
+		public Vector4[] GetBuffer()
+		{
+			var tex = renderSurfaces.ActiveFirst;
+			var buffer = new Vector4[tex.Width * tex.Height];
+			tex.Activate();
+			GL.GetTexImage(TextureTarget.Texture2D, 0, PixelFormat.Rgba, PixelType.Float, buffer);
+			tex.Deactivate();
+			return buffer;
 		}
 
 		public float UpdateTime { get { return (float)(glTimer.ResultLong * 1e-9); } }

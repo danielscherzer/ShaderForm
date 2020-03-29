@@ -1,6 +1,7 @@
 ﻿using ShaderForm.Interfaces;
 using ShaderForm.Visual;
 using System.Drawing;
+using System.Numerics;
 using Zenseless.Patterns;
 
 namespace ShaderForm.Demo
@@ -45,6 +46,8 @@ namespace ShaderForm.Demo
 		{
 			return visualContext.GetScreenshot();
 		}
+
+		public Vector4[] GetBuffer() => visualContext.GetBuffer();
 
 		public bool UpdateBuffer(int mouseX, int mouseY, int mouseButton, int bufferWidth, int bufferHeight)
 		{

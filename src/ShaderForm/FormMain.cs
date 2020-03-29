@@ -13,6 +13,7 @@ using System.Linq;
 using System.Numerics;
 using System.Reflection;
 using System.Windows.Forms;
+using Zenseless.Geometry;
 
 namespace ShaderForm
 {
@@ -452,9 +453,20 @@ namespace ShaderForm
 			{
 				case MouseButtons.Left: mouseButton = 1; break;
 				case MouseButtons.Middle: mouseButton = 2; break;
-				case MouseButtons.Right: mouseButton = 3; break;
+				case MouseButtons.Right: mouseButton = 3; ShowPixelInformation(e.X, e.Y); break;
 			}
 			glControl.Invalidate();
+		}
+
+		private void ShowPixelInformation(int x, int y)
+		{
+			x = MathHelper.Clamp(x, 0, glControl.Width - 1);
+			y = MathHelper.Clamp(y, 0, glControl.Height - 1);
+
+			var buffer = demo.GetBuffer();
+			var color = buffer[x + glControl.Width * (glControl.Height - 1 - y)];
+			this.Text = $"r:{color.X} g:{color.Y} b:{color.Z} a:{color.W}";
+			Invalidate();
 		}
 
 		private void GlControl_MouseMove(object sender, MouseEventArgs e)
@@ -462,10 +474,17 @@ namespace ShaderForm
 			var m = e.Location;
 			//normalized mouse pos
 			float mouseX = m.X / (float)glControl.Width;
-			float mouseY = (glControl.Height - m.Y) / (float)glControl.Height;
+			float mouseY = (glControl.Height - 1 - m.Y) / (float)glControl.Height;
 			mousePos = new Vector2(mouseX, mouseY);
 
-			if (!demo.TimeSource.IsRunning) glControl.Invalidate(); //TODO: otherwise time stops during update?!
+			if (!demo.TimeSource.IsRunning)
+			{
+				glControl.Invalidate(); //TODO: otherwise time stops during update?!
+			}
+			if(e.Button == MouseButtons.Right)
+			{
+				ShowPixelInformation(e.X, e.Y);
+			}
 		}
 
 		private void GlControl_MouseUp(object sender, MouseEventArgs e)

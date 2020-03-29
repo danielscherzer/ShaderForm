@@ -10,7 +10,7 @@
     <RootNamespace>DemoRecorder</RootNamespace>
     <AssemblyName>DemoRecorder</AssemblyName>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-    <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <CodeContractsAssemblyMode>0</CodeContractsAssemblyMode>
