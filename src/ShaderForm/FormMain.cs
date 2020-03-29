@@ -463,10 +463,18 @@ namespace ShaderForm
 			x = MathHelper.Clamp(x, 0, glControl.Width - 1);
 			y = MathHelper.Clamp(y, 0, glControl.Height - 1);
 
+			var id = x + glControl.Width * (glControl.Height - 1 - y);
 			var buffer = demo.GetBuffer();
-			var color = buffer[x + glControl.Width * (glControl.Height - 1 - y)];
-			this.Text = $"r:{color.X} g:{color.Y} b:{color.Z} a:{color.W}";
-			Invalidate();
+			try
+			{
+				var color = buffer[id];
+				this.Text = $"r:{color.X} g:{color.Y} b:{color.Z} a:{color.W}";
+				Invalidate();
+			}
+			catch(IndexOutOfRangeException e)
+			{
+				throw new IndexOutOfRangeException($"Buffer size is {buffer.Length}; access at {id}", e);
+			}
 		}
 
 		private void GlControl_MouseMove(object sender, MouseEventArgs e)
