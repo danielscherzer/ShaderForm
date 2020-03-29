@@ -98,7 +98,7 @@ namespace DemoPlayer
 		private void game_RenderFrame(object sender, FrameEventArgs e)
 		{
 			demo.UpdateBuffer(0, 0, 0, bufferWidth, bufferHeight);
-			demo.Draw(gameWindow.Width, gameWindow.Height);
+			demo.Draw(gameWindow.Width, gameWindow.Height, true);
 			gameWindow.SwapBuffers();
 		}
 	}

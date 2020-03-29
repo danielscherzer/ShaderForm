@@ -107,7 +107,7 @@ namespace DemoRecorder
 		private void Game_RenderFrame(object sender, FrameEventArgs e)
 		{
 			demo.UpdateBuffer(0, 0, 0, bufferWidth, bufferHeight);
-			demo.Draw(gameWindow.Width, gameWindow.Height);
+			demo.Draw(gameWindow.Width, gameWindow.Height, true);
 			demo.GetScreenshot().Save(saveDirectory + fileNumber.ToString("00000") + ".png");
 			gameWindow.SwapBuffers();
 			++fileNumber;
