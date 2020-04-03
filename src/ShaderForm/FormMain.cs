@@ -446,7 +446,7 @@ namespace ShaderForm
 			try
 			{
 				var color = buffer[id];
-				Text = $"r:{color.X} g:{color.Y} b:{color.Z} a:{color.W}";
+				Text = $"r:{color.X} g:{color.Y} b:{color.Z} a:{color.W} rgb.length:{color.XYZ().Length()}";
 				//ContextMenuStrip cm = new ContextMenuStrip();
 				//cm.Items.Add(Text);
 				//cm.Show(MousePosition);
