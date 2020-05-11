@@ -23,6 +23,6 @@
 			formLog.Visible = true;
 		}
 
-		private FormMessages formLog = new FormMessages();
+		private readonly FormMessages formLog = new FormMessages();
 	}
 }

@@ -23,7 +23,8 @@ namespace ShaderForm
 			SaveFileDialog dlg = new SaveFileDialog
 			{
 				Filter = filter,
-				AddExtension = true
+				AddExtension = true,
+				FileName = "output@" + DateTime.Now.ToString("HH-mm-ss"),
 			};
 			if (DialogResult.OK == dlg.ShowDialog() && !(action is null))
 			{

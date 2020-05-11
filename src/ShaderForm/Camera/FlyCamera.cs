@@ -47,7 +47,7 @@ namespace ShaderForm.Camera
 			lastTime = total;
 
 			// rotate by keys
-			if(IsActive)
+			if (IsActive)
 			{
 				rot.X += tilt * Speed * dt;
 				rot.Y += heading * Speed * dt;
@@ -87,7 +87,7 @@ namespace ShaderForm.Camera
 				case Keys.T: tilt = delta; Run(pressed); break;
 				case Keys.G: tilt = -delta; Run(pressed); break;
 				case Keys.Oemplus:
-				case Keys.Add: if(pressed) Speed *= 2.0f; break;
+				case Keys.Add: if (pressed) Speed *= 2.0f; break;
 				case Keys.OemMinus:
 				case Keys.Subtract: if (pressed) Speed /= 2.0f; break;
 			}
@@ -101,7 +101,7 @@ namespace ShaderForm.Camera
 		private float axisUp = 0f;
 		private float lastMouseX = 0;
 		private float lastMouseY = 0;
-		private Stopwatch time = new Stopwatch();
+		private readonly Stopwatch time = new Stopwatch();
 		private float lastTime = 0f;
 
 		private void Run(bool running)

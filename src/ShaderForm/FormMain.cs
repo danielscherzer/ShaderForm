@@ -7,10 +7,8 @@ using ShaderForm.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Numerics;
 using System.Reflection;
 using System.Windows.Forms;
 using Zenseless.Geometry;
@@ -33,11 +31,11 @@ namespace ShaderForm
 			InitializeComponent();
 			recentShaderFiles = new RecentShaderFiles(shaderFileName => NewDemo(shaderFileName));
 			var update = new Update("danielscherzer", "ShaderForm", Assembly.GetExecutingAssembly(), Path.GetTempPath());
-			update.PropertyChanged += (s, a) => 
+			update.PropertyChanged += (s, a) =>
 			{
-				if(update.Available)
+				if (update.Available)
 				{
-					updateAvailableToolStripMenuItem.Click += (_, __) => 
+					updateAvailableToolStripMenuItem.Click += (_, __) =>
 					{
 						update.Install();
 						Close();
@@ -81,7 +79,8 @@ namespace ShaderForm
 			menuScreenshot.Click += (sender, e) => Dialogs.SaveFile("png (*.png)|*.png", (fileName) => { glControl.Invalidate(); demo.GetScreenshot().Save(fileName); });
 			copyImageToolStripMenuItem.Click += (sender, e) => { glControl.Invalidate(); Clipboard.SetImage(demo.GetScreenshot()); };
 			var keyState = new Dictionary<Keys, bool>();
-			KeyDown += (sender, e) => {
+			KeyDown += (sender, e) =>
+			{
 				if (keyState.TryGetValue(e.KeyCode, out bool pressed))
 				{
 					if (pressed) return;
@@ -89,7 +88,7 @@ namespace ShaderForm
 				keyState[e.KeyCode] = true;
 				camera.KeyChange(e.KeyCode, true);
 			}; //KEYDOWN is fired multiple times according to key repeat windows setting
-			KeyUp += (sender, e) => 
+			KeyUp += (sender, e) =>
 			{
 				keyState[e.KeyCode] = false;
 				camera.KeyChange(e.KeyCode, false);
@@ -113,13 +112,13 @@ namespace ShaderForm
 			try
 			{
 				camera.Reset();
-				DemoLoader.LoadFromFile(demo, fileName, (obj, args) => log.Append(args.Message) );
+				DemoLoader.LoadFromFile(demo, fileName, (obj, args) => log.Append(args.Message));
 				foreach (var shaderPath in demo.Shaders)
 				{
 					recentShaderFiles.Add(shaderPath);
 				}
 			}
-			catch(Exception e)
+			catch (Exception e)
 			{
 				log.Append("No valid demo file found with exception '" + e.Message + "'");
 			};
@@ -338,11 +337,11 @@ namespace ShaderForm
 				menuCompact.Checked = Convert.ToBoolean(RegistryLoader.LoadValue(Name, "compact", false));
 				menuOnTop.Checked = TopMost;
 				var recentShaderFilesString = Convert.ToString(RegistryLoader.LoadValue(Name, "recentFiles", string.Empty));
-				foreach(var recentShaderFile in recentShaderFilesString.Split('?'))
+				foreach (var recentShaderFile in recentShaderFilesString.Split('?'))
 				{
 					recentShaderFiles.Add(recentShaderFile);
 				}
-				
+
 
 				String[] arguments = Environment.GetCommandLineArgs();
 				if (arguments.Length > 1)
@@ -452,7 +451,7 @@ namespace ShaderForm
 				//cm.Show(MousePosition);
 				Invalidate();
 			}
-			catch(IndexOutOfRangeException e)
+			catch (IndexOutOfRangeException e)
 			{
 				throw new IndexOutOfRangeException($"Buffer size is {buffer.Length}; access at {id} with mouse at {parameters.MouseX}:{parameters.MouseY}", e);
 			}
@@ -487,15 +486,13 @@ namespace ShaderForm
 		private void MenuTexture_MouseDown(object sender, MouseEventArgs e)
 		{
 			if (MouseButtons.Right != e.Button) return;
-			var menu = sender as ToolStripMenuItem;
-			if (menu is null) return;
+			if (!(sender is ToolStripMenuItem menu)) return;
 			demo.Textures.Remove(menu.Text);
 		}
 
 		private void MenuShader_MouseDown(object sender, MouseEventArgs e)
 		{
-			var menu = sender as ToolStripMenuItem;
-			if (menu is null) return;
+			if (!(sender is ToolStripMenuItem menu)) return;
 			switch (e.Button)
 			{
 				case MouseButtons.Left:
@@ -510,8 +507,7 @@ namespace ShaderForm
 
 		private void MenuUniform_MouseDown(object sender, MouseEventArgs e)
 		{
-			var menu = sender as ToolStripMenuItem;
-			if (menu is null) return;
+			if (!(sender is ToolStripMenuItem menu)) return;
 			switch (e.Button)
 			{
 				case MouseButtons.Left: ShowUniformGraph(menu.Text); break;
@@ -640,7 +636,7 @@ namespace ShaderForm
 			camera.PasteKeyFrames(demo.Uniforms);
 		}
 
-		private void glControl_Resize(object sender, EventArgs e)
+		private void GlControl_Resize(object sender, EventArgs e)
 		{
 			parameters.SetControlSize(glControl.Width, glControl.Height);
 		}

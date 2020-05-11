@@ -1,5 +1,4 @@
-﻿using ShaderForm;
-using ShaderForm.DemoModelFactory;
+﻿using ShaderForm.DemoModelFactory;
 using ShaderForm.Visual;
 using System;
 using System.IO;
@@ -27,6 +26,6 @@ namespace DemoPlayer
 			Changed?.Invoke(this, "Loading '+" + shaderFileName + "' with success!");
 		}
 
-		private VisualContext visualContext;
+		private readonly VisualContext visualContext;
 	}
 }

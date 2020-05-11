@@ -1,10 +1,10 @@
 ﻿namespace ShaderForm.Demo
 {
-	using System.IO;
-	using System.Linq;
 	using ShaderForm.DemoData2;
 	using System;
 	using System.Collections.Generic;
+	using System.IO;
+	using System.Linq;
 	using Zenseless.Patterns;
 
 	public class ProgressEventArgs : EventArgs
@@ -91,7 +91,7 @@
 			foreach (var tex in textures)
 			{
 				bool success = demo.Textures.AddUpdate(tex);
-				if(!(progressHandler is null))
+				if (!(progressHandler is null))
 				{
 					var msg = success ? "Texture file '" + tex + "' loaded" : "Could not load texture file '" + tex + "'";
 					var args = new ProgressEventArgs(msg);

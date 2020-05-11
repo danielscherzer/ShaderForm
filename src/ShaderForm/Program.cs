@@ -3,17 +3,17 @@ using System.Windows.Forms;
 
 namespace ShaderForm
 {
-    static class Program
-    {
-        /// <summary>
-        /// Der Haupteinstiegspunkt für die Anwendung.
-        /// </summary>
-        [STAThread]
-        static void Main()
-        {
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
+	internal static class Program
+	{
+		/// <summary>
+		/// Der Haupteinstiegspunkt für die Anwendung.
+		/// </summary>
+		[STAThread]
+		private static void Main()
+		{
+			Application.EnableVisualStyles();
+			Application.SetCompatibleTextRenderingDefault(false);
 			Application.Run(new FormMain());
-        }
-    }
+		}
+	}
 }

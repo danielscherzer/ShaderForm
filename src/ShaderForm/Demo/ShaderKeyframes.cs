@@ -24,8 +24,8 @@ namespace ShaderForm.Demo
 
 		public string GetCurrentShader(float currentTime)
 		{
-            //if empty return empty string
-            if(0 == keyframes.Count) return string.Empty;
+			//if empty return empty string
+			if (0 == keyframes.Count) return string.Empty;
 			var firstItem = keyframes.First();
 			if (firstItem.Key > currentTime) return firstItem.Value;
 			try
@@ -92,6 +92,6 @@ namespace ShaderForm.Demo
 			Changed?.Invoke(this, EventArgs.Empty);
 		}
 
-		private SortedDictionary<float, string> keyframes = new SortedDictionary<float, string>();
+		private readonly SortedDictionary<float, string> keyframes = new SortedDictionary<float, string>();
 	}
 }

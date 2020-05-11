@@ -60,6 +60,6 @@ namespace ShaderForm.DemoModelFactory
 			Clear();
 		}
 
-		private VisualContext visual;
+		private readonly VisualContext visual;
 	}
 }

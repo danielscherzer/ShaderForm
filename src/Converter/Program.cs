@@ -8,9 +8,9 @@ using Zenseless.Patterns;
 
 namespace Converter
 {
-	class Program
+	internal class Program
 	{
-		static void Main(string[] args)
+		private static void Main(string[] args)
 		{
 			if (2 > args.Count()) return;
 			try

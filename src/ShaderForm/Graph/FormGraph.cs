@@ -4,7 +4,6 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
-using Zenseless.ExampleFramework;
 
 namespace ShaderForm.Graph
 {
@@ -145,7 +144,7 @@ namespace ShaderForm.Graph
 		{
 			var points = chart1.Series.First().Points;
 			var point = points[pointIndex];
-			if(moveAxisYToolStripMenuItem.Checked)
+			if (moveAxisYToolStripMenuItem.Checked)
 			{
 				point.YValues[0] = InputBox.Show((float)point.YValues[0]);
 			}

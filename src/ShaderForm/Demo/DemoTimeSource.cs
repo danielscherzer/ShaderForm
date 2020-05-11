@@ -1,8 +1,8 @@
-﻿using Zenseless.Sound;
+﻿using ControlClassLibrary;
 using System;
 using System.Diagnostics;
 using System.IO;
-using ControlClassLibrary;
+using Zenseless.Sound;
 
 namespace ShaderForm.Demo
 {

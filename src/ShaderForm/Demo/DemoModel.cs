@@ -59,7 +59,7 @@ namespace ShaderForm.Demo
 			visualContext.SetUniform("iTime", TimeSource.Position);
 			visualContext.SetUniform("u_time", TimeSource.Position);
 
-			visualContext.SetUniform("iResolution", bufferWidth, bufferHeight, bufferWidth / (float) bufferHeight);
+			visualContext.SetUniform("iResolution", bufferWidth, bufferHeight, bufferWidth / (float)bufferHeight);
 			visualContext.SetUniform("u_resolution", bufferWidth, bufferHeight);
 
 			visualContext.SetUniform("iMouse", mouseX, mouseY, mouseButton);
@@ -83,6 +83,6 @@ namespace ShaderForm.Demo
 		}
 
 		private readonly VisualContext visualContext;
-		private Uniforms uniforms;
+		private readonly Uniforms uniforms;
 	}
 }

@@ -1,7 +1,6 @@
 ﻿using ShaderForm.Interfaces;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using Zenseless.ExampleFramework;
 
 namespace ShaderForm.Graph
 {
@@ -68,8 +67,8 @@ namespace ShaderForm.Graph
 			formGraph.UpdatePosition(position);
 		}
 
-		private FormGraph formGraph;
-		private IKeyFrames kfs;
+		private readonly FormGraph formGraph;
+		private readonly IKeyFrames kfs;
 		private bool updating = false;
 		private readonly string currentUniform;
 

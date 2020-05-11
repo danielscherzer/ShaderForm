@@ -87,7 +87,7 @@ namespace ShaderForm
 			this.glControl.MouseDown += new System.Windows.Forms.MouseEventHandler(this.GlControl_MouseDown);
 			this.glControl.MouseMove += new System.Windows.Forms.MouseEventHandler(this.GlControl_MouseMove);
 			this.glControl.MouseUp += new System.Windows.Forms.MouseEventHandler(this.GlControl_MouseUp);
-			this.glControl.Resize += new System.EventHandler(this.glControl_Resize);
+			this.glControl.Resize += new System.EventHandler(this.GlControl_Resize);
 			// 
 			// menuStrip
 			// 

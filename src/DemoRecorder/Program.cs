@@ -1,16 +1,16 @@
 ﻿using OpenTK;
-using System;
-using System.Linq;
-using System.Windows.Forms;
 using OpenTK.Input;
-using System.IO;
-using ShaderForm.Visual;
 using ShaderForm.Demo;
 using ShaderForm.DemoModelFactory;
+using ShaderForm.Visual;
+using System;
+using System.IO;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace DemoRecorder
 {
-	class MyApplication
+	internal class MyApplication
 	{
 		[STAThread]
 		private static void Main()
@@ -19,14 +19,14 @@ namespace DemoRecorder
 			window.Run();
 		}
 
-		private GameWindow gameWindow = new GameWindow();
-		private VisualContext visualContext;
-		private DemoModel demo;
-		private int bufferWidth;
-		private int bufferHeight;
-		private string saveDirectory;
+		private readonly GameWindow gameWindow = new GameWindow();
+		private readonly VisualContext visualContext;
+		private readonly DemoModel demo;
+		private readonly int bufferWidth;
+		private readonly int bufferHeight;
+		private readonly string saveDirectory;
 		private int fileNumber;
-		private int frameRate;
+		private readonly int frameRate;
 
 		private MyApplication()
 		{
@@ -42,7 +42,7 @@ namespace DemoRecorder
 			if (3 > arguments.Length)
 			{
 				MessageBox.Show("DemoRecorder <configfile> <saveDirectory> [<resX> <resY> <frameRate>]"
-					+ Environment.NewLine 
+					+ Environment.NewLine
 					+ " Please give the demo config file name as application parameter followed by the render buffer resolution.");
 				gameWindow.Close();
 				return;
@@ -54,7 +54,7 @@ namespace DemoRecorder
 				bufferWidth = int.Parse(arguments.ElementAt(3));
 				bufferHeight = int.Parse(arguments.ElementAt(4));
 			}
-			catch
+			catch (FormatException)
 			{
 				bufferWidth = gameWindow.Width;
 				bufferHeight = gameWindow.Height;
@@ -63,7 +63,7 @@ namespace DemoRecorder
 			{
 				frameRate = int.Parse(arguments.ElementAt(5));
 			}
-			catch
+			catch (FormatException)
 			{
 				frameRate = 25;
 			}

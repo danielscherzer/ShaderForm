@@ -4,7 +4,7 @@ using Zenseless.Geometry;
 
 namespace ShaderForm
 {
-	class TextureSpaceParameters
+	internal class TextureSpaceParameters
 	{
 		private float factor = 1.0f;
 		private bool relativeFactor = true;

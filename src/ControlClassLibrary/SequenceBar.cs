@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
@@ -58,7 +57,7 @@ namespace ControlClassLibrary
 			MenuStrip_Paint(null, null);
 		}
 
-		public event EventHandler Changed; 
+		public event EventHandler Changed;
 		public IEnumerable<SequenceBarItem> Items { get { return new SequenceBarItemEnumerator(menuStrip.Items.GetEnumerator()); } }
 
 		private Random rnd;

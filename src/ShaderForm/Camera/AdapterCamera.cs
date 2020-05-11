@@ -1,5 +1,4 @@
-﻿using OpenTK;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 
 namespace ShaderForm.Camera
 {
@@ -20,7 +19,7 @@ namespace ShaderForm.Camera
 			this.cam = cam;
 		}
 
-		private FlyCamera cam;
+		private readonly FlyCamera cam;
 
 		private void Update()
 		{

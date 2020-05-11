@@ -12,7 +12,7 @@ namespace ShaderForm.Demo
 
 		public bool Add(string uniformName)
 		{
-			if(!UniformHelper.IsNameValid(uniformName)) return false;
+			if (!UniformHelper.IsNameValid(uniformName)) return false;
 			if (uniforms.ContainsKey(uniformName)) return true;
 			try
 			{
@@ -65,6 +65,6 @@ namespace ShaderForm.Demo
 			UniformRemoved?.Invoke(this, uniformName);
 		}
 
-		private Dictionary<string, KeyFrames> uniforms = new Dictionary<string, KeyFrames>();
+		private readonly Dictionary<string, KeyFrames> uniforms = new Dictionary<string, KeyFrames>();
 	}
 }

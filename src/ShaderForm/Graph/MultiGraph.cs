@@ -59,7 +59,7 @@ namespace ShaderForm.Graph
 		{
 			if (string.IsNullOrEmpty(uniformName)) return;
 			var uniforms = sender as IUniforms;
-			if (ReferenceEquals(null,  uniforms)) return;
+			if (ReferenceEquals(null, uniforms)) return;
 			var kfs = uniforms.GetKeyFrames(uniformName);
 			var visualisation = new FacadeKeyframesVisualisation(uniformName, kfs);
 			visualisation.ChangedPosition += (position) => ChangedPosition?.Invoke(position);
@@ -84,6 +84,6 @@ namespace ShaderForm.Graph
 			}
 		}
 
-		private Dictionary<string, FacadeKeyframesVisualisation> graphs = new Dictionary<string, FacadeKeyframesVisualisation>();
+		private readonly Dictionary<string, FacadeKeyframesVisualisation> graphs = new Dictionary<string, FacadeKeyframesVisualisation>();
 	}
 }

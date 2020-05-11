@@ -29,7 +29,7 @@ namespace ShaderForm.Graph
 
 		private void TextBox1_KeyDown(object sender, KeyEventArgs e)
 		{
-			switch(e.KeyCode)
+			switch (e.KeyCode)
 			{
 				case Keys.Enter: DialogResult = DialogResult.OK; Close(); break;
 				case Keys.Escape: DialogResult = DialogResult.Cancel; Close(); break;

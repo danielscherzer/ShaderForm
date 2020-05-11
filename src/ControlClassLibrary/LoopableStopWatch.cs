@@ -108,10 +108,10 @@
 			timer.Dispose();
 		}
 
-		private Stopwatch sw = new Stopwatch();
+		private readonly Stopwatch sw = new Stopwatch();
 		private float startPosition = 0f;
 		private float length = 0f;
-		private Timer timer = new Timer();
+		private readonly Timer timer = new Timer();
 
 		private void InitTimer(float interval)
 		{

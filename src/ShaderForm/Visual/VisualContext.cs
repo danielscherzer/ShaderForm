@@ -6,10 +6,9 @@
 	using System.Diagnostics;
 	using System.Drawing;
 	using System.IO;
-    using System.Numerics;
-    using System.Reflection;
-    using System.Runtime.InteropServices;
-    using Zenseless.HLGL;
+	using System.Numerics;
+	using System.Reflection;
+	using Zenseless.HLGL;
 	using Zenseless.OpenGL;
 	using Zenseless.Patterns;
 
@@ -71,7 +70,7 @@
 				++id;
 			}
 			//bind last frame as texture
-			for(int i = 0; i < renderSurfaces.Last.Count; ++i)
+			for (int i = 0; i < renderSurfaces.Last.Count; ++i)
 			{
 				GL.ActiveTexture(TextureUnit.Texture0 + id);
 				renderSurfaces.Last[i].Activate();
@@ -125,7 +124,7 @@
 						return true;
 					}
 				}
-				catch {	}
+				catch { }
 			}
 			return false;
 		}
@@ -135,10 +134,10 @@
 			return textureNames;
 		}
 
-        public bool RemoveTexture(string fileName)
+		public bool RemoveTexture(string fileName)
 		{
 			int index = textureNames.FindIndex((string name) => name == fileName);
-			if(0 <= index)
+			if (0 <= index)
 			{
 				textures[index].Dispose();
 				textureNames.RemoveAt(index);
@@ -234,14 +233,14 @@
 		//public IEnumerable<string> ShaderList { get { return shaders.Keys; } }
 		//public IEnumerable<string> TextureList { get { return textureNames; } }
 
-		private List<string> textureNames = new List<string>();
-		private List<ITexture> textures = new List<ITexture>();
-		private Dictionary<string, IShaderProgram> shaders = new Dictionary<string, IShaderProgram>();
-		private PingPongFbo renderSurfaces;
-		private PostProcessing copyToScreen;
+		private readonly List<string> textureNames = new List<string>();
+		private readonly List<ITexture> textures = new List<ITexture>();
+		private readonly Dictionary<string, IShaderProgram> shaders = new Dictionary<string, IShaderProgram>();
+		private readonly PingPongFbo renderSurfaces;
+		private readonly PostProcessing copyToScreen;
 		private IShaderProgram shaderCurrent;
-		private IShaderProgram shaderDefault;
-		private QueryObject glTimer = new QueryObject();
+		private readonly IShaderProgram shaderDefault;
+		private readonly QueryObject glTimer = new QueryObject();
 		private readonly FileContentManager contentManager;
 
 		protected override void DisposeResources()

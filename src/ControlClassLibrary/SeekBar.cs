@@ -67,7 +67,7 @@
 		public float Position
 		{
 			get { return markerBarPosition.Value; }
-			set	{ markerBarPosition.Value = value; }
+			set { markerBarPosition.Value = value; }
 		}
 
 		public int UpdateIntervalMsec
@@ -109,13 +109,13 @@
 
 		private void MarkerBarPosition_MouseDown(object sender, MouseEventArgs e)
 		{
-			if(e.Button == MouseButtons.Right) contextMenuStrip1.Show(MousePosition);
+			if (e.Button == MouseButtons.Right) contextMenuStrip1.Show(MousePosition);
 		}
 
 		private void ToolStripComboBox1_TextChanged(object sender, EventArgs e)
 		{
 			var strValue = toolStripComboBox1.Text.ToLowerInvariant().Replace("hz", string.Empty);
-			if(int.TryParse(strValue, out var value))
+			if (int.TryParse(strValue, out var value))
 			{
 				timerUpdateMarkerBar.Interval = (int)(1000.0 / value);
 			}

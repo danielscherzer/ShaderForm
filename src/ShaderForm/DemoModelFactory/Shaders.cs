@@ -75,7 +75,7 @@ namespace ShaderForm.DemoModelFactory
 			shaderCreator = null;
 		}
 
-		private Dictionary<string, IShaderFile> shaders = new Dictionary<string, IShaderFile>();
+		private readonly Dictionary<string, IShaderFile> shaders = new Dictionary<string, IShaderFile>();
 
 		private ShaderFileCreator shaderCreator;
 	}

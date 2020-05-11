@@ -1,9 +1,9 @@
 ﻿using ShaderForm.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.Windows.Forms;
 using System.Linq;
 using System.Text;
+using System.Windows.Forms;
 
 namespace ShaderForm.Camera
 {
@@ -114,7 +114,7 @@ namespace ShaderForm.Camera
 
 			string data = Clipboard.GetText();
 			var lines = data.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
-			foreach(var line in lines)
+			foreach (var line in lines)
 			{
 				try
 				{
@@ -153,9 +153,9 @@ namespace ShaderForm.Camera
 		}
 
 		private FlyCamera camera = new FlyCamera();
-		private AdapterCamera adapter;
-		private FormCamera formCamera = new FormCamera();
-		private string[] posUniformNames = { "iCamPosX", "iCamPosY", "iCamPosZ" };
-		private string[] rotUniformNames = { "iCamRotX", "iCamRotY", "iCamRotZ" };
+		private readonly AdapterCamera adapter;
+		private readonly FormCamera formCamera = new FormCamera();
+		private readonly string[] posUniformNames = { "iCamPosX", "iCamPosY", "iCamPosZ" };
+		private readonly string[] rotUniformNames = { "iCamRotX", "iCamRotY", "iCamRotZ" };
 	}
 }

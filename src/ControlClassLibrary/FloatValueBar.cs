@@ -21,37 +21,40 @@ namespace ControlClassLibrary
 			ResizeRedraw = true;
 		}
 
-		public float Value { 
-			get { return m_fValue; } 
-			set 
+		public float Value
+		{
+			get { return m_fValue; }
+			set
 			{
 				if (value == this.m_fValue) return;
 				this.m_fValue = Math.Min(Math.Max(value, this.m_fMin), this.m_fMax);
 				ValueChanged?.Invoke(this, null);
 				Invalidate();
-			} 
+			}
 		}
-		
-		public float Min { 
-			get { return m_fMin; } 
-			set 
+
+		public float Min
+		{
+			get { return m_fMin; }
+			set
 			{
 				m_fMin = Math.Min(value, Max);
 				Value = Math.Max(Min, Value);
-			} 
+			}
 		}
-		
-		public float Max { 
-			get { return m_fMax; } 
-			set 
-			{ 
+
+		public float Max
+		{
+			get { return m_fMax; }
+			set
+			{
 				m_fMax = Math.Max(value, Min);
 				Value = Math.Min(Max, Value);
 			}
 		}
 
 		public byte Decimals { get { return m_decimals; } set { m_decimals = value; Invalidate(); } }
-		
+
 		/// <summary>
 		/// set all interdependent values at once; is usefull if consecutive updates to max, value and min fail or event code changes inputs
 		/// </summary>
@@ -77,7 +80,7 @@ namespace ControlClassLibrary
 		public override string Text { get { return m_sText; } set { m_sText = value; Invalidate(); } }
 
 		[Browsable(false)]
-		public bool Interacting { get { return m_bMarking; } } 
+		public bool Interacting { get { return m_bMarking; } }
 
 		public Color BarColor { get { return m_barColor; } set { m_barColor = value; Invalidate(); } }
 

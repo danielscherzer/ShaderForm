@@ -6,7 +6,7 @@ namespace ControlClassLibrary
 {
 	public class SequenceBarItemEnumerator : IEnumerable<SequenceBarItem>, IEnumerator<SequenceBarItem>
 	{
-		private IEnumerator enumerator;
+		private readonly IEnumerator enumerator;
 
 		public SequenceBarItemEnumerator(IEnumerator enumerator)
 		{

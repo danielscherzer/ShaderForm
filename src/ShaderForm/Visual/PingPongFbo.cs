@@ -1,7 +1,7 @@
-﻿using Zenseless.HLGL;
-using Zenseless.OpenGL;
-using OpenTK.Graphics.OpenGL4;
+﻿using OpenTK.Graphics.OpenGL4;
 using System.Collections.Generic;
+using Zenseless.HLGL;
+using Zenseless.OpenGL;
 using Zenseless.Patterns;
 
 namespace ShaderForm.Visual
@@ -18,7 +18,7 @@ namespace ShaderForm.Visual
 		public PingPongFbo(uint renderTargetCount)
 		{
 			var drawBufferList = new List<DrawBuffersEnum>();
-			for(int i = 0; i < renderTargetCount; ++i)
+			for (int i = 0; i < renderTargetCount; ++i)
 			{
 				drawBufferList.Add(DrawBuffersEnum.ColorAttachment0 + i);
 			}
@@ -42,7 +42,7 @@ namespace ShaderForm.Visual
 		/// <value>
 		/// The last.
 		/// </value>
-		public IReadOnlyList<ITexture2D> Last {  get { return LastFBO.Textures; } }
+		public IReadOnlyList<ITexture2D> Last { get { return LastFBO.Textures; } }
 
 		/// <summary>
 		/// Renders this instance.
@@ -93,7 +93,7 @@ namespace ShaderForm.Visual
 			fboB.Dispose();
 		}
 
-		private DrawBuffersEnum[] drawBuffers;
+		private readonly DrawBuffersEnum[] drawBuffers;
 		private FBO fboA, fboB, activeFBO;
 		private FBO LastFBO { get { return (activeFBO == fboA) ? fboB : fboA; } }
 

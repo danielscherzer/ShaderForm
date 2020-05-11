@@ -6,7 +6,7 @@ using System.Windows.Forms;
 
 namespace ShaderForm
 {
-	class RecentShaderFiles
+	internal class RecentShaderFiles
 	{
 		public RecentShaderFiles(Action<string> onClick)
 		{
@@ -25,7 +25,7 @@ namespace ShaderForm
 			recentShaderFiles.RemoveRange(0, removeCount); // keep last 20 shader files
 			var items = Menu.DropDownItems;
 			items.Clear();
-			foreach(var recentFileName in recentShaderFiles.Reverse<string>())
+			foreach (var recentFileName in recentShaderFiles.Reverse<string>())
 			{
 				var newItem = new ToolStripMenuItem(recentFileName);
 				if (onClick != null) newItem.Click += (s, a) =>
@@ -36,7 +36,7 @@ namespace ShaderForm
 			}
 		}
 
-		private List<string> recentShaderFiles = new List<string>();
+		private readonly List<string> recentShaderFiles = new List<string>();
 		private readonly Action<string> onClick;
 
 		public ToolStripMenuItem Menu { get; }

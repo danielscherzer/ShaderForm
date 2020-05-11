@@ -1,15 +1,15 @@
 ﻿using OpenTK;
+using OpenTK.Input;
+using ShaderForm.Demo;
+using ShaderForm.DemoModelFactory;
+using ShaderForm.Visual;
 using System;
 using System.Linq;
 using System.Windows.Forms;
-using OpenTK.Input;
-using ShaderForm.Visual;
-using ShaderForm.Demo;
-using ShaderForm.DemoModelFactory;
 
 namespace DemoPlayer
 {
-	class MyApplication
+	internal class MyApplication
 	{
 		[STAThread]
 		private static void Main()
@@ -18,11 +18,11 @@ namespace DemoPlayer
 			window.Run();
 		}
 
-		private GameWindow gameWindow = new GameWindow();
-		private VisualContext visualContext;
-		private DemoModel demo;
-		private int bufferWidth;
-		private int bufferHeight;
+		private readonly GameWindow gameWindow = new GameWindow();
+		private readonly VisualContext visualContext;
+		private readonly DemoModel demo;
+		private readonly int bufferWidth;
+		private readonly int bufferHeight;
 
 		private void Run()
 		{
@@ -44,8 +44,8 @@ namespace DemoPlayer
 			var arguments = Environment.GetCommandLineArgs();
 			if (1 == arguments.Length)
 			{
-				MessageBox.Show("DemoPlayer <configfile> [<resX> <resY>]" 
-					+ Environment.NewLine 
+				MessageBox.Show("DemoPlayer <configfile> [<resX> <resY>]"
+					+ Environment.NewLine
 					+ " Please give the demo config file name you wish to play as application parameter followed by the render buffer resolution.");
 				gameWindow.Close();
 				return;
@@ -74,7 +74,7 @@ namespace DemoPlayer
 			}
 		}
 
-	private void GameWindow_KeyDown(object sender, KeyboardKeyEventArgs e)
+		private void GameWindow_KeyDown(object sender, KeyboardKeyEventArgs e)
 		{
 			if (Key.Escape == e.Key)
 			{
@@ -87,7 +87,7 @@ namespace DemoPlayer
 			return new ShaderFile(visualContext);
 		}
 
-		void GameWindow_Load(object sender, EventArgs e)
+		private void GameWindow_Load(object sender, EventArgs e)
 		{
 			//fullscreen
 			gameWindow.WindowBorder = WindowBorder.Hidden;

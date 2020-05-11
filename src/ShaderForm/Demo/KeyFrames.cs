@@ -1,12 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using ShaderForm.Interfaces;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using Zenseless.Geometry;
-using ShaderForm.Interfaces;
 
 namespace ShaderForm.Demo
 {
-	public class KeyFrames: IKeyFrames
+	public class KeyFrames : IKeyFrames
 	{
 		public event EventHandler<EventArgs> Changed;
 
@@ -27,7 +27,7 @@ namespace ShaderForm.Demo
 		{
 			float cubic(float t)
 			{
-				return t* t *(3f - 2f * t);
+				return t * t * (3f - 2f * t);
 			}
 			if (0 == keyframes.Count) return 0.0f;
 			var pair = keyframes.FindPair(currentTime);
@@ -51,6 +51,6 @@ namespace ShaderForm.Demo
 			Changed?.Invoke(this, EventArgs.Empty);
 		}
 
-		private ControlPoints<float> keyframes = new ControlPoints<float>();
+		private readonly ControlPoints<float> keyframes = new ControlPoints<float>();
 	}
 }

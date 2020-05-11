@@ -34,7 +34,7 @@ namespace ShaderForm.DemoModelFactory
 
 		private string shaderFileName;
 		private FileWatcher fileWatcher;
-		private VisualContext visualContext;
+		private readonly VisualContext visualContext;
 		private readonly ISynchronizeInvoke syncObject;
 
 		private void LoadShader(string fileName)
