@@ -2,7 +2,6 @@
 using System;
 using System.Diagnostics;
 using System.IO;
-using Zenseless.Sound;
 
 namespace ShaderForm.Demo
 {

@@ -45,6 +45,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ControlClassLibrary\ControlClassLibrary.csproj">
+      <Project>{1e28b48e-ded7-4184-a449-b1d8c8c489ea}</Project>
+      <Name>ControlClassLibrary</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ShaderForm\ShaderForm.csproj">
       <Project>{38149468-a074-4408-8684-b06f7176b3f6}</Project>
       <Name>ShaderForm</Name>
@@ -52,7 +56,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Zenseless.Patterns">
-      <Version>0.5.140</Version>
+      <Version>0.5.149</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>

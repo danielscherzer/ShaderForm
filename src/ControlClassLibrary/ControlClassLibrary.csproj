@@ -37,6 +37,7 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ITimedMedia.cs" />
     <Compile Include="LoopableStopWatch.cs" />
     <Compile Include="ISequenceBarItem.cs" />
     <Compile Include="FloatValueBar.cs">
@@ -87,10 +88,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Zenseless.Patterns">
-      <Version>0.5.140</Version>
-    </PackageReference>
-    <PackageReference Include="Zenseless.Sound">
-      <Version>0.5.140</Version>
+      <Version>0.5.149</Version>
     </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

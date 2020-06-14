@@ -41,9 +41,9 @@ namespace DemoRecorder
 			var arguments = Environment.GetCommandLineArgs();
 			if (3 > arguments.Length)
 			{
-				MessageBox.Show("DemoRecorder <configfile> <saveDirectory> [<resX> <resY> <frameRate>]"
+				MessageBox.Show("DemoRecorder <shaderform demo configfile> <saveDirectory> [<resolutionX> <resolutionY> <frameRate>]"
 					+ Environment.NewLine
-					+ " Please give the demo config file name as application parameter followed by the render buffer resolution.");
+					+ " Please give the demo config file name as application parameter followed by the resolution.");
 				gameWindow.Close();
 				return;
 			}

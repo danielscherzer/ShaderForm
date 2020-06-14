@@ -2,7 +2,6 @@
 {
 	using System;
 	using System.Windows.Forms;
-	using Zenseless.Sound;
 
 	public partial class SeekBar : UserControl
 	{

@@ -44,6 +44,8 @@ namespace ShaderForm
 				+ "Ctrl+S \t\t save demo\n"
 				+ "Ctrl+H \t\t add shader\n"
 				+ "Ctrl+Shift+S \t save screenshot\n"
+				+ "Drag-Drop \t load shader/texture/sound file\n"
+				+ "Ctrl+Drag-Drop \t add additional shader file at current point in time\n"
 
 				+ "\nActive shader that reads camera uniforms\n"
 				+ "w|a|s|d \t\t camera pan xz-plane\n"

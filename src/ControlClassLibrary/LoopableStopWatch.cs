@@ -3,7 +3,6 @@
 	using System.Diagnostics;
 	using System.Timers;
 	using Zenseless.Patterns;
-	using Zenseless.Sound;
 
 	/// <summary>
 	/// A stop watch type clock with a certain length or running time.

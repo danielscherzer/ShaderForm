@@ -34,7 +34,7 @@ namespace DemoPlayer
 		{
 			gameWindow.Load += GameWindow_Load;
 			gameWindow.KeyDown += GameWindow_KeyDown;
-			gameWindow.RenderFrame += game_RenderFrame;
+			gameWindow.RenderFrame += Game_RenderFrame;
 			visualContext = new VisualContext();
 			var textures = new Textures(visualContext);
 			var shaders = new Shaders(NewShaderFile);
@@ -95,7 +95,7 @@ namespace DemoPlayer
 			gameWindow.VSync = VSyncMode.On;
 		}
 
-		private void game_RenderFrame(object sender, FrameEventArgs e)
+		private void Game_RenderFrame(object sender, FrameEventArgs e)
 		{
 			demo.UpdateBuffer(0, 0, 0, bufferWidth, bufferHeight);
 			demo.Draw(gameWindow.Width, gameWindow.Height, true);
