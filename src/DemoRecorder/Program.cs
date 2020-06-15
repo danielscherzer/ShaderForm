@@ -10,107 +10,94 @@ using System.Windows.Forms;
 
 namespace DemoRecorder
 {
-	internal class MyApplication
+	internal class Program
 	{
 		[STAThread]
 		private static void Main()
 		{
-			var window = new MyApplication();
-			window.Run();
+			var window = new GameWindow(512, 512);
+			var parameters = ParseCommandLine(window.Width, window.Height);
+			if (parameters is null) return;
+			var demo = CreateDemo();
+			demo.TimeSource.TimeFinished += () => window.Close();
+			try
+			{
+				DemoLoader.LoadFromFile(demo, parameters.DemoConfigFileName);
+			}
+			catch (Exception e)
+			{
+				MessageBox.Show("Error loading demo '" + parameters.DemoConfigFileName + '"' + Environment.NewLine + e.Message);
+				return;
+			}
+			window.KeyDown += (s, e) =>
+			{
+				if (Key.Escape == e.Key)
+				{
+					window.Close();
+				}
+			};
+			window.VSync = VSyncMode.Off;
+			window.Visible = true; //show the window
+			var fileNumber = 0;
+			demo.UpdateBuffer(0, 0, 0, parameters.ResolutionX, parameters.ResolutionY);
+			demo.Draw(window.Width, window.Height, true);
+			window.SwapBuffers();
+			while (window.Exists)
+			{
+				demo.UpdateBuffer(0, 0, 0, parameters.ResolutionX, parameters.ResolutionY);
+				demo.Draw(window.Width, window.Height, true);
+				using (var bmp = demo.GetScreenshot())
+				{
+					bmp.Save(Path.Combine(parameters.SaveDirectory, fileNumber.ToString("00000") + ".png"));
+				}
+				window.SwapBuffers();
+				window.ProcessEvents();
+				++fileNumber;
+				demo.TimeSource.Position += 1.0f / parameters.FrameRate; //step 1/25 of a second
+			}
 		}
 
-		private readonly GameWindow gameWindow = new GameWindow();
-		private readonly VisualContext visualContext;
-		private readonly DemoModel demo;
-		private readonly int bufferWidth;
-		private readonly int bufferHeight;
-		private readonly string saveDirectory;
-		private int fileNumber;
-		private readonly int frameRate;
-
-		private MyApplication()
+		private static DemoModel CreateDemo()
 		{
-			gameWindow.KeyDown += GameWindow_KeyDown;
-			gameWindow.RenderFrame += Game_RenderFrame;
-			visualContext = new VisualContext();
+			var visualContext = new VisualContext();
 			var textures = new Textures(visualContext);
-			var shaders = new Shaders(NewShaderFile);
-			demo = new DemoModel(visualContext, shaders, textures, false);
-			demo.TimeSource.TimeFinished += () => gameWindow.Close();
+			var shaders = new Shaders(() => new ShaderFile(visualContext));
+			return new DemoModel(visualContext, shaders, textures, false);
+		}
 
+		private static Parameters ParseCommandLine(int defaultResolutionX, int defaultResolutionY)
+		{
 			var arguments = Environment.GetCommandLineArgs();
 			if (3 > arguments.Length)
 			{
 				MessageBox.Show("DemoRecorder <shaderform demo configfile> <saveDirectory> [<resolutionX> <resolutionY> <frameRate>]"
-					+ Environment.NewLine
-					+ " Please give the demo config file name as application parameter followed by the resolution.");
-				gameWindow.Close();
-				return;
+					+ Environment.NewLine + " Please give the demo configuration file name as application parameter followed by the resolution.");
+				return null;
 			}
-			bufferWidth = gameWindow.Width;
-			bufferHeight = gameWindow.Height;
+			var parameters = new Parameters
+			{
+				DemoConfigFileName = arguments.ElementAt(1),
+				SaveDirectory = Directory.CreateDirectory(arguments.ElementAt(2)).FullName
+			};
 			try
 			{
-				bufferWidth = int.Parse(arguments.ElementAt(3));
-				bufferHeight = int.Parse(arguments.ElementAt(4));
+				parameters.ResolutionX = int.Parse(arguments.ElementAt(3));
+				parameters.ResolutionY = int.Parse(arguments.ElementAt(4));
 			}
 			catch (FormatException)
 			{
-				bufferWidth = gameWindow.Width;
-				bufferHeight = gameWindow.Height;
+				parameters.ResolutionX = defaultResolutionX;
+				parameters.ResolutionY = defaultResolutionY;
 			}
 			try
 			{
-				frameRate = int.Parse(arguments.ElementAt(5));
+				parameters.FrameRate = int.Parse(arguments.ElementAt(5));
 			}
 			catch (FormatException)
 			{
-				frameRate = 25;
+				parameters.FrameRate = 25;
 			}
-			try
-			{
-				DemoLoader.LoadFromFile(demo, arguments.ElementAt(1));
-				saveDirectory = Directory.CreateDirectory(arguments.ElementAt(2)).FullName;
-				fileNumber = 0;
-			}
-			catch (Exception e)
-			{
-				MessageBox.Show("Error loading demo '" + arguments.ElementAt(1) + '"'
-					+ Environment.NewLine + e.Message);
-				gameWindow.Close();
-			}
-		}
-
-		private void Run()
-		{
-			gameWindow.VSync = VSyncMode.Off;
-			demo.UpdateBuffer(0, 0, 0, bufferWidth, bufferHeight);
-			demo.Draw(gameWindow.Width, gameWindow.Height, true);
-			gameWindow.SwapBuffers();
-			gameWindow.Run(200.0);
-		}
-
-		private void GameWindow_KeyDown(object sender, KeyboardKeyEventArgs e)
-		{
-			if (Key.Escape == e.Key)
-			{
-				gameWindow.Close();
-			}
-		}
-
-		private IShaderFile NewShaderFile()
-		{
-			return new ShaderFile(visualContext);
-		}
-
-		private void Game_RenderFrame(object sender, FrameEventArgs e)
-		{
-			demo.UpdateBuffer(0, 0, 0, bufferWidth, bufferHeight);
-			demo.Draw(gameWindow.Width, gameWindow.Height, true);
-			demo.GetScreenshot().Save(Path.Combine(saveDirectory, fileNumber.ToString("00000") + ".png"));
-			gameWindow.SwapBuffers();
-			++fileNumber;
-			demo.TimeSource.Position += 1.0f / frameRate; //step 1/25 of a second
+			return parameters;
 		}
 	}
 }
