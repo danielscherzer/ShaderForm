@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using System;
+using System.Windows.Forms;
 
 namespace ShaderForm
 {
@@ -44,7 +45,6 @@ namespace ShaderForm
 			this.menuOnTop = new System.Windows.Forms.ToolStripMenuItem();
 			this.logToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.cameraWindowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.tracksWindowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.menuUniforms = new System.Windows.Forms.ToolStripMenuItem();
 			this.addCameraUniformsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.copyCameraUniformsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -139,8 +139,7 @@ namespace ShaderForm
             this.menuCompact,
             this.menuOnTop,
             this.logToolStripMenuItem,
-            this.cameraWindowToolStripMenuItem,
-            this.tracksWindowToolStripMenuItem});
+            this.cameraWindowToolStripMenuItem});
 			this.menuWindow.Name = "menuWindow";
 			this.menuWindow.Size = new System.Drawing.Size(107, 34);
 			this.menuWindow.Text = "Window";
@@ -223,12 +222,6 @@ namespace ShaderForm
 			this.cameraWindowToolStripMenuItem.Name = "cameraWindowToolStripMenuItem";
 			this.cameraWindowToolStripMenuItem.Size = new System.Drawing.Size(401, 40);
 			this.cameraWindowToolStripMenuItem.Text = "Camera Window";
-			// 
-			// tracksWindowToolStripMenuItem
-			// 
-			this.tracksWindowToolStripMenuItem.Name = "tracksWindowToolStripMenuItem";
-			this.tracksWindowToolStripMenuItem.Size = new System.Drawing.Size(401, 40);
-			this.tracksWindowToolStripMenuItem.Text = "Tracks Window";
 			// 
 			// menuUniforms
 			// 
@@ -438,6 +431,7 @@ namespace ShaderForm
 			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormMain_FormClosing);
 			this.Load += new System.EventHandler(this.FormMain_Load);
 			this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FormMain_KeyDown);
+			this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.FormMain_KeyUp);
 			this.menuStrip.ResumeLayout(false);
 			this.menuStrip.PerformLayout();
 			this.panelSequence.ResumeLayout(false);
@@ -445,10 +439,9 @@ namespace ShaderForm
 			this.PerformLayout();
 
 		}
+		#endregion
 
-        #endregion
-
-        private OpenTK.GLControl glControl;
+		private OpenTK.GLControl glControl;
 		private MenuStrip menuStrip;
 		private ToolStripMenuItem menuBenchmark;
 		private ToolStripMenuItem menuTextures;
@@ -477,7 +470,6 @@ namespace ShaderForm
 		private ToolStripMenuItem cameraWindowToolStripMenuItem;
 		private ToolStripMenuItem menuCompact;
 		private ToolStripComboBox menuSizeSetting;
-		private ToolStripMenuItem tracksWindowToolStripMenuItem;
 		private ToolStripMenuItem copyImageToolStripMenuItem;
 		private ToolStripMenuItem copyCameraUniformsToolStripMenuItem;
 		private ToolStripMenuItem pasteCameraUniformsToolStripMenuItem;

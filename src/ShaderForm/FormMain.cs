@@ -22,9 +22,9 @@ namespace ShaderForm
 		private readonly MultiGraph multiGraph = new MultiGraph();
 		private readonly FacadeFormMessages log = new FacadeFormMessages();
 		private readonly FacadeCamera camera = new FacadeCamera();
-		private readonly FormTracks tracks = new FormTracks();
 		private readonly RecentShaderFiles recentShaderFiles;
 		private string lastMessage;
+		private bool released = true;
 
 		public FormMain()
 		{
@@ -48,12 +48,12 @@ namespace ShaderForm
 			menuSizeSetting.SelectedIndexChanged += (sender, e) => glControl.Invalidate();
 			multiGraph.ChangedPosition += (pos) => soundPlayerBar1.Position = pos;
 			multiGraph.KeyDown += FormMain_KeyDown;
+			multiGraph.KeyUp += FormMain_KeyUp;
 			camera.Redraw += (position) => glControl.Invalidate();
 			cameraWindowToolStripMenuItem.Click += (s, e) => camera.Show();
 			addCameraUniformsToolStripMenuItem.Click += (s, e) => camera.AddKeyFrames(demo.TimeSource.Position, demo.Uniforms);
 
 			logToolStripMenuItem.Click += (s, e) => log.Show();
-			tracksWindowToolStripMenuItem.Click += (s, e) => tracks.Show();
 			soundPlayerBar1.PositionChanged += (position) => glControl.Invalidate();
 			soundPlayerBar1.PositionChanged += (position) => multiGraph.UpdatePosition(position);
 			soundPlayerBar1.PositionChanged += (position) => camera.UpdateFromUniforms(demo.Uniforms, position);
@@ -377,7 +377,6 @@ namespace ShaderForm
 				multiGraph.SaveLayout();
 				log.SaveLayout();
 				camera.SaveLayout();
-				tracks.SaveLayout();
 				// rename old
 				DefaultFiles.RenameAutoSaveDemoFile();
 				// save new
@@ -392,7 +391,8 @@ namespace ShaderForm
 
 		private void FormMain_KeyDown(object sender, KeyEventArgs e)
 		{
-			if (e.Handled) return;
+			if (e.Handled || !released) return;
+			released = false;
 			switch (e.KeyCode)
 			{
 				case Keys.Escape: Close(); return;
@@ -400,17 +400,27 @@ namespace ShaderForm
 				case Keys.K:
 					if (e.Control)
 					{
-						multiGraph.AddInterpolatedKeyframeTo(sender, demo.TimeSource.Position);
+						multiGraph.GetGraph(sender)?.AddInterpolatedKeyframe(demo.TimeSource.Position);
 					}
 					else
 					{
-						multiGraph.AddInterpolatedKeyframeToVisible(demo.TimeSource.Position);
+						foreach(var graph in multiGraph.GetVisibleGraphs()) graph.AddInterpolatedKeyframe(demo.TimeSource.Position);
 					}
 					break;
 				case Keys.R:
 					if (e.Control)
 					{
 						camera.Reset();
+					}
+					break;
+				case Keys.T:
+					if (e.Control)
+					{
+						multiGraph.GetGraph(sender)?.AddKeyframe(demo.TimeSource.Position, 1.0f);
+					}
+					else
+					{
+						foreach (var graph in multiGraph.GetVisibleGraphs()) graph.AddKeyframe(demo.TimeSource.Position, 1.0f);
 					}
 					break;
 				case Keys.Space:
@@ -423,6 +433,25 @@ namespace ShaderForm
 				case Keys.PageUp: soundPlayerBar1.Position -= e.Alt ? 2.0f : 5.0f; break;
 				case Keys.Home: soundPlayerBar1.Position = 0.0f; break;
 				case Keys.End: soundPlayerBar1.Position = demo.TimeSource.Length; break;
+			}
+		}
+
+		private void FormMain_KeyUp(object sender, KeyEventArgs e)
+		{
+			released = true;
+			if (e.Handled) return;
+			switch (e.KeyCode)
+			{
+				case Keys.T:
+					if (e.Control)
+					{
+						multiGraph.GetGraph(sender)?.AddKeyframe(demo.TimeSource.Position, 0.0f);
+					}
+					else
+					{
+						foreach (var graph in multiGraph.GetVisibleGraphs()) graph.AddKeyframe(demo.TimeSource.Position, 0.0f);
+					}
+					break;
 			}
 		}
 
@@ -446,9 +475,6 @@ namespace ShaderForm
 			{
 				var color = buffer[id];
 				Text = $"r:{color.X} g:{color.Y} b:{color.Z} a:{color.W} rgb.length:{color.XYZ().Length()}";
-				//ContextMenuStrip cm = new ContextMenuStrip();
-				//cm.Items.Add(Text);
-				//cm.Show(MousePosition);
 				Invalidate();
 			}
 			catch (IndexOutOfRangeException e)
@@ -570,7 +596,7 @@ namespace ShaderForm
 					TextUniformAdd.Text = string.Empty;
 					if (kfs is null) return;
 					kfs.AddUpdate(0.0f, 0.0f);
-					kfs.AddUpdate(demo.TimeSource.Length, demo.TimeSource.Length);
+					kfs.AddUpdate(demo.TimeSource.Length, 1.0f);
 					ShowUniformGraph(text);
 				}
 			}

@@ -9,6 +9,7 @@ namespace ShaderForm.Graph
 		public delegate void ChangedPositionHandler(float position);
 		public event ChangedPositionHandler ChangedPosition;
 		public event KeyEventHandler KeyDown;
+		public event KeyEventHandler KeyUp;
 
 		public FacadeKeyframesVisualisation(string uniformName, IKeyFrames kfs)
 		{
@@ -16,9 +17,9 @@ namespace ShaderForm.Graph
 			formGraph.ChangedPoints += FormGraph_OnChangePoints;
 			formGraph.ChangedPosition += (pos) => { ChangedPosition?.Invoke((float)pos); };
 			formGraph.KeyDown += (sender, args) => { KeyDown?.Invoke(sender, args); };
+			formGraph.KeyUp += (sender, args) => { KeyUp?.Invoke(sender, args); };
 			formGraph.CopyCommand += (sender, args) => { if (!(kfs is null)) kfs.CopyKeyframesToClipboard(); };
 			formGraph.PasteCommand += (sender, args) => { if (!(kfs is null)) kfs.PasteKeyframesFromClipboard(); };
-			currentUniform = uniformName;
 			this.kfs = kfs;
 			Update();
 		}
@@ -32,6 +33,12 @@ namespace ShaderForm.Graph
 		{
 			if (kfs is null) return;
 			var value = kfs.Interpolate(position);
+			kfs.AddUpdate(position, value);
+		}
+
+		internal void AddKeyframe(float position, float value)
+		{
+			if (kfs is null) return;
 			kfs.AddUpdate(position, value);
 		}
 
@@ -70,7 +77,6 @@ namespace ShaderForm.Graph
 		private readonly FormGraph formGraph;
 		private readonly IKeyFrames kfs;
 		private bool updating = false;
-		private readonly string currentUniform;
 
 		private void FormGraph_OnChangePoints(IEnumerable<KeyValuePair<float, float>> points)
 		{

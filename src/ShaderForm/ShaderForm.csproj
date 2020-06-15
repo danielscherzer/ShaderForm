@@ -79,12 +79,6 @@
     <Compile Include="Demo\DemoLoader.cs" />
     <Compile Include="Demo\DemoModel.cs" />
     <Compile Include="FormTools.cs" />
-    <Compile Include="FormTracks.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FormTracks.Designer.cs">
-      <DependentUpon>FormTracks.cs</DependentUpon>
-    </Compile>
     <Compile Include="TextureSpaceParameters.cs" />
     <Compile Include="Graph\FacadeKeyframesVisualisation.cs" />
     <Compile Include="Dialogs.cs" />
@@ -149,9 +143,6 @@
     <Compile Include="DemoModelFactory\ShaderFile.cs" />
     <EmbeddedResource Include="Camera\FormCamera.resx">
       <DependentUpon>FormCamera.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FormTracks.resx">
-      <DependentUpon>FormTracks.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Graph\FormGraph.resx">
       <DependentUpon>FormGraph.cs</DependentUpon>

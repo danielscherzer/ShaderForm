@@ -25,15 +25,15 @@ namespace ShaderForm.Demo
 
 		public float Interpolate(float currentTime)
 		{
-			float cubic(float t)
-			{
-				return t * t * (3f - 2f * t);
-			}
+			//float cubic(float t)
+			//{
+			//	return t * t * (3f - 2f * t);
+			//}
 			if (0 == keyframes.Count) return 0.0f;
 			var pair = keyframes.FindPair(currentTime);
 			//interpolation
 			float valueDelta = pair.Item2 - pair.Item1;
-			return pair.Item1 + cubic(pair.Item3) * valueDelta;
+			return pair.Item1 + pair.Item3 * valueDelta;
 		}
 
 		public IEnumerator<KeyValuePair<float, float>> GetEnumerator()

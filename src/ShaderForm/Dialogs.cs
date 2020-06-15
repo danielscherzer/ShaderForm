@@ -35,6 +35,8 @@ namespace ShaderForm
 		public static void Help()
 		{
 			MessageBox.Show("Active main form\n"
+				+ "Drag-Drop \t load shader/texture/sound file\n"
+				+ "Ctrl+Drag-Drop \t add additional shader file at current point in time\n"
 				+ "F1 \t\t help\n"
 				+ "F11 \t\t toggle fullscreen\n"
 				+ "F12 \t\t toggle compact view\n"
@@ -44,8 +46,6 @@ namespace ShaderForm
 				+ "Ctrl+S \t\t save demo\n"
 				+ "Ctrl+H \t\t add shader\n"
 				+ "Ctrl+Shift+S \t save screenshot\n"
-				+ "Drag-Drop \t load shader/texture/sound file\n"
-				+ "Ctrl+Drag-Drop \t add additional shader file at current point in time\n"
 
 				+ "\nActive shader that reads camera uniforms\n"
 				+ "w|a|s|d \t\t camera pan xz-plane\n"
@@ -57,14 +57,16 @@ namespace ShaderForm
 				+ "Ctrl+R \t\t reset camera\n"
 
 				+ "\nActive graph form\n"
-				+ "Ctrl+K \t\t add keyframe to this graph\n"
-				+ "Ctrl+C \t\t copy Keyframes\n"
-				+ "Ctrl+P \t\t paste Keyframes\n"
+				+ "Ctrl+K \t\t add key frame to this graph\n"
+				+ "Ctrl+C \t\t copy key frames\n"
+				+ "Ctrl+P \t\t paste key frames\n"
 
 				+ "\nAll windows\n"
 				+ "Escape \t\t close\n"
-				+ "K \t\t add keyframe to all open graphs\n"
-				+ "C \t\t add camera position and rotation keyframes\n"
+				+ "K \t\t add key frame to all open graphs\n"
+				+ "T_DOWN \t add key frame with value 1 to all open graphs\n"
+				+ "T_UP \t\t add key frame with value 0 to all open graphs\n"
+				+ "C \t\t add camera position and rotation key frames\n"
 				+ "Space \t\t play/pause\n"
 				+ "Ctrl+Left \t time step backward 0.5 / 0.1 [+Alt]\n"
 				+ "Ctrl+Right \t time step forward 0.5 / 0.1 [+Alt]\n"

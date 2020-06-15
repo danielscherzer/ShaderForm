@@ -31,7 +31,6 @@
 			if (!LoadSound(data.SoundFileName, demo, progressHandler)) return;
 			foreach (var track in data.Tracks)
 			{
-				//todo: load track.Name;
 				foreach (var shaderKeyframe in track.ShaderKeyframes)
 				{
 					demo.Shaders.AddUpdateShader(shaderKeyframe.ShaderPath);
