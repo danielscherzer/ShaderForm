@@ -40,6 +40,7 @@ namespace ShaderForm
 			this.menuSizeSetting = new System.Windows.Forms.ToolStripComboBox();
 			this.copyImageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.menuScreenshot = new System.Windows.Forms.ToolStripMenuItem();
+			this.menuVideo = new System.Windows.Forms.ToolStripMenuItem();
 			this.menuFullscreen = new System.Windows.Forms.ToolStripMenuItem();
 			this.menuCompact = new System.Windows.Forms.ToolStripMenuItem();
 			this.menuOnTop = new System.Windows.Forms.ToolStripMenuItem();
@@ -135,6 +136,7 @@ namespace ShaderForm
             this.menuSizeSetting,
             this.copyImageToolStripMenuItem,
             this.menuScreenshot,
+			this.menuVideo,
             this.menuFullscreen,
             this.menuCompact,
             this.menuOnTop,
@@ -182,6 +184,13 @@ namespace ShaderForm
             | System.Windows.Forms.Keys.S)));
 			this.menuScreenshot.Size = new System.Drawing.Size(401, 40);
 			this.menuScreenshot.Text = "Save Image File";
+			// 
+			// menuVideo
+			// 
+			this.menuVideo.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+			this.menuVideo.Name = "menuVideo";
+			this.menuVideo.Size = new System.Drawing.Size(401, 40);
+			this.menuVideo.Text = "Save Image Files";
 			// 
 			// menuFullscreen
 			// 
@@ -447,6 +456,7 @@ namespace ShaderForm
 		private ToolStripMenuItem menuTextures;
 		private ToolStripMenuItem menuFullscreen;
 		private ToolStripMenuItem menuScreenshot;
+		private ToolStripMenuItem menuVideo;
 		private ToolStripMenuItem menuSound;
 		private ToolStripMenuItem MenuTextureAdd;
 		private ToolStripMenuItem menuShaders;

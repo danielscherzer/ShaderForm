@@ -77,6 +77,7 @@ namespace ShaderForm
 					}
 				});
 			menuScreenshot.Click += (sender, e) => Dialogs.SaveFile("png (*.png)|*.png", (fileName) => { glControl.Invalidate(); demo.GetScreenshot().Save(fileName); });
+			menuVideo.Click += (sender, e) => FormSaveImages.Show(demo);
 			copyImageToolStripMenuItem.Click += (sender, e) => { glControl.Invalidate(); Clipboard.SetImage(demo.GetScreenshot()); };
 			var keyState = new Dictionary<Keys, bool>();
 			KeyDown += (sender, e) =>

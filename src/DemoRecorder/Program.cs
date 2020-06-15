@@ -71,10 +71,6 @@ namespace DemoRecorder
 			{
 				DemoLoader.LoadFromFile(demo, arguments.ElementAt(1));
 				saveDirectory = Directory.CreateDirectory(arguments.ElementAt(2)).FullName;
-				saveDirectory += Path.DirectorySeparatorChar;
-				saveDirectory += DateTime.Now.ToString("yyyyMMdd HHmmss");
-				saveDirectory += Path.DirectorySeparatorChar;
-				Directory.CreateDirectory(saveDirectory);
 				fileNumber = 0;
 			}
 			catch (Exception e)
@@ -88,6 +84,9 @@ namespace DemoRecorder
 		private void Run()
 		{
 			gameWindow.VSync = VSyncMode.Off;
+			demo.UpdateBuffer(0, 0, 0, bufferWidth, bufferHeight);
+			demo.Draw(gameWindow.Width, gameWindow.Height, true);
+			gameWindow.SwapBuffers();
 			gameWindow.Run(200.0);
 		}
 
@@ -108,7 +107,7 @@ namespace DemoRecorder
 		{
 			demo.UpdateBuffer(0, 0, 0, bufferWidth, bufferHeight);
 			demo.Draw(gameWindow.Width, gameWindow.Height, true);
-			demo.GetScreenshot().Save(saveDirectory + fileNumber.ToString("00000") + ".png");
+			demo.GetScreenshot().Save(Path.Combine(saveDirectory, fileNumber.ToString("00000") + ".png"));
 			gameWindow.SwapBuffers();
 			++fileNumber;
 			demo.TimeSource.Position += 1.0f / frameRate; //step 1/25 of a second

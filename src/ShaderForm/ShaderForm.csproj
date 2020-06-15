@@ -78,6 +78,12 @@
     <Compile Include="DemoData2\Uniform.cs" />
     <Compile Include="Demo\DemoLoader.cs" />
     <Compile Include="Demo\DemoModel.cs" />
+    <Compile Include="FormSaveImages.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormSaveImages.Designer.cs">
+      <DependentUpon>FormSaveImages.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormTools.cs" />
     <Compile Include="TextureSpaceParameters.cs" />
     <Compile Include="Graph\FacadeKeyframesVisualisation.cs" />
@@ -143,6 +149,9 @@
     <Compile Include="DemoModelFactory\ShaderFile.cs" />
     <EmbeddedResource Include="Camera\FormCamera.resx">
       <DependentUpon>FormCamera.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormSaveImages.resx">
+      <DependentUpon>FormSaveImages.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Graph\FormGraph.resx">
       <DependentUpon>FormGraph.cs</DependentUpon>

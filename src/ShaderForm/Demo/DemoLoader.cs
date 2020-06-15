@@ -50,6 +50,25 @@
 			Serialization.ToXMLFile(data, fileName);
 		}
 
+		public static IEnumerable<string> SaveImages(DemoModel demo, string directory)
+		{
+			//create dir
+			Directory.CreateDirectory(directory);
+			var fileNumber = 0;
+			var frameTime = 1f / 25f; //25 frames per second
+			var resolutionX = 1920;
+			var resolutionY = 1080;
+			var ts = demo.TimeSource;
+			for(ts.Position = 0f; ts.Position < ts.Length; ts.Position += frameTime, ++fileNumber)
+			{
+				demo.UpdateBuffer(0, 0, 0, resolutionX, resolutionY);
+				demo.Draw(resolutionX, resolutionY, true);
+				var fileName = Path.Combine(directory, fileNumber.ToString("00000") + ".png");
+				demo.GetScreenshot().Save(fileName);
+				yield return fileName;
+			}
+		}
+
 		private static void LoadUniforms(IEnumerable<Uniform> uniforms, DemoModel demo)
 		{
 			foreach (var uniform in uniforms)
