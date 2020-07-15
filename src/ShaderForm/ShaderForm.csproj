@@ -208,7 +208,7 @@
       <Version>0.1.30</Version>
     </PackageReference>
     <PackageReference Include="GLSLhelper">
-      <Version>0.1.11</Version>
+      <Version>0.3.21</Version>
     </PackageReference>
     <PackageReference Include="OpenTK">
       <Version>3.2.0</Version>

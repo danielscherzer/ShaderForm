@@ -12,9 +12,9 @@ namespace ShaderForm.Camera
 			Reset();
 		}
 
-		public Vector3 Position;
-		public Vector3 Rotation;
-		public float Speed;
+		public Vector3 Position { get; set; }
+		public Vector3 Rotation { get; set; }
+		public float Speed { get; set; }
 
 		public bool IsActive => time.IsRunning;
 
@@ -28,19 +28,20 @@ namespace ShaderForm.Camera
 
 		public void Update(float mouseX, float mouseY, bool leftPressed)
 		{
-			Vector3 rot = MathHelper.DegreesToRadians(1f) * Rotation;
+			Vector3 rot = Rotation;
 			float mouseXDelta = mouseX - lastMouseX;
 			lastMouseX = mouseX;
 			float mouseYDelta = mouseY - lastMouseY;
 			lastMouseY = mouseY;
 
-			// x-Rotation
-			if (leftPressed) rot.X += 0.001f * mouseYDelta;
-			rot.X = (float)(rot.X % (2.0 * Math.PI));
-
-			// y-Rotation
-			if (leftPressed) rot.Y += 0.0005f * mouseXDelta;
-			rot.Y = (float)(rot.Y % (2.0 * Math.PI));
+			// rotation
+			if (leftPressed)
+			{
+				rot.X += 0.01f * mouseYDelta;
+				rot.Y += 0.005f * mouseXDelta;
+			}
+			rot.X %= MathHelper.TwoPi;
+			rot.Y %= MathHelper.TwoPi;
 
 			var total = (float)time.Elapsed.TotalSeconds;
 			var dt = total - lastTime;
@@ -49,8 +50,8 @@ namespace ShaderForm.Camera
 			// rotate by keys
 			if (IsActive)
 			{
-				rot.X += tilt * Speed * dt;
-				rot.Y += heading * Speed * dt;
+				rot.X += tilt * dt;
+				rot.Y += heading * dt;
 			}
 
 			Vector3 camLeft = new Vector3(-1, 0, 0);
@@ -59,7 +60,7 @@ namespace ShaderForm.Camera
 			camLeft = RotateX(camLeft, -rot.X);
 			camFwdTmp = RotateY(camFwdTmp, rot.Y);
 			camLeft = RotateY(camLeft, rot.Y);
-			Rotation = MathHelper.RadiansToDegrees(1f) * rot;
+			Rotation = rot;
 
 			if (IsActive)
 			{
@@ -67,8 +68,8 @@ namespace ShaderForm.Camera
 				Position += axisLeft * camLeft * Speed * dt;
 				Position += axisUp * camUpTemp * Speed * dt;
 				Position += axisFwd * camFwdTmp * Speed * dt;
+				Console.WriteLine(Rotation);
 			}
-			camFwd = camFwdTmp;
 		}
 
 		public void KeyChange(Keys key, bool pressed)
@@ -93,7 +94,6 @@ namespace ShaderForm.Camera
 			}
 		}
 
-		private Vector3 camFwd = new Vector3(0, 0, 1);
 		private float heading = 0f;
 		private float tilt = 0f;
 		private float axisLeft = 0f;

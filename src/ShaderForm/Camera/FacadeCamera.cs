@@ -1,4 +1,5 @@
-﻿using ShaderForm.Interfaces;
+﻿using OpenTK;
+using ShaderForm.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -128,18 +129,22 @@ namespace ShaderForm.Camera
 
 		public bool UpdateFromUniforms(IUniforms uniforms, float time)
 		{
+			var position = Vector3.Zero;
+			var rotation = Vector3.Zero;
 			for (int i = 0; i < 3; ++i)
 			{
 				var kfsPos = uniforms.GetKeyFrames(posUniformNames[i]);
 				if (kfsPos is null) return false;
 				var value = kfsPos.Interpolate(time);
-				camera.Position[i] = value;
+				position[i] = value;
 
 				var kfsRot = uniforms.GetKeyFrames(rotUniformNames[i]);
 				if (kfsRot is null) return false;
 				var valueRot = kfsRot.Interpolate(time);
-				camera.Rotation[i] = valueRot;
+				rotation[i] = valueRot;
 			}
+			camera.Position = position;
+			camera.Rotation = rotation;
 			return true;
 		}
 
