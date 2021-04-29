@@ -1,6 +1,7 @@
 ﻿using ShaderForm.Demo;
 using System.Diagnostics;
 using System.IO;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
@@ -17,15 +18,13 @@ namespace ShaderForm
 			public uint ResolutionY { get; set; } = 1080;
 			public uint FramesPerSecond { get; set; } = 25;
 		}
-		private readonly DemoModel demo;
 
-		public FormSaveImages(DemoModel demo)
+		public FormSaveImages()
 		{
 			InitializeComponent();
 			settings = new Settings();
 			Dialogs.SaveFile("", (fileName) => settings.Directory = Path.ChangeExtension(fileName, null));
-			this.propertyGrid1.SelectedObject = settings;
-			this.demo = demo;
+			propertyGrid1.SelectedObject = settings;
 		}
 
 		public static DialogResult Show(DemoModel demo)
@@ -34,14 +33,16 @@ namespace ShaderForm
 			DefaultFiles.RenameAutoSaveDemoFile();
 			// save
 			DemoLoader.SaveToFile(demo, DefaultFiles.GetAutoSaveDemoFilePath());
-			var form = new FormSaveImages(demo);
+			var form = new FormSaveImages();
 			return (form.ShowDialog());
 		}
 
 		private void ButtonClickHandler(object sender, System.EventArgs e)
 		{
 			string quote(string input) => '"' + input + '"';
-			Process.Start("DemoRecorder.exe", $"{quote(DefaultFiles.GetAutoSaveDemoFilePath())} {quote(settings.Directory)} {settings.ResolutionX} {settings.ResolutionY} {settings.FramesPerSecond}");
+			var assembly = Assembly.GetExecutingAssembly();
+			var demoRecorderPath = Path.Combine(Path.GetDirectoryName(assembly.Location), "DemoRecorder.exe");
+			Process.Start(demoRecorderPath, $"{quote(DefaultFiles.GetAutoSaveDemoFilePath())} {quote(settings.Directory)} {settings.ResolutionX} {settings.ResolutionY} {settings.FramesPerSecond}");
 			Close();
 		}
 	}
