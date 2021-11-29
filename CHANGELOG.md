@@ -7,7 +7,8 @@ download at [github releases](https://github.com/danielscherzer/ShaderForm/relea
 
 # Change log
 
-These are the changes to each version that has been released on the NuGet Gallery.
+These are the changes to each version that has been released on GitHub releases.
 
 
-
+## 0.1
+- [x] Initial release
