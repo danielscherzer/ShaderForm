@@ -30,7 +30,7 @@ deploy:
   provider: GitHub
   auth_token:
     secure: rgkHI4xJxcv3RdU4raAipHeo5lbwXL8uMblC8lPQm9esgm0c89S869xBwoHIZ/aS
-  artifact: Latest build
+  artifact: ShaderForm
   draft: false
   prerelease: false
   on:
